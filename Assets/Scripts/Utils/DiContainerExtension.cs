@@ -10,7 +10,7 @@ namespace Utils
         public static IfNotBoundBinder BindService<TUpdatableService>(this DiContainer container, UpdateType updateType, bool isImmediateStart = false)
             where TUpdatableService : IUpdatableService
         {
-            return container.Bind<TUpdatableService>().AsSingle().WithArguments(updateType, isImmediateStart).NonLazy();
+            return container.BindInterfacesTo<TUpdatableService>().AsSingle().WithArguments(updateType, isImmediateStart).NonLazy();
         }
         
         public static IfNotBoundBinder BindAssembler<TAssembler>(this DiContainer container, List<IAssemblerPart> assemblerPart)

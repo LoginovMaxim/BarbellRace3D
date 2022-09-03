@@ -9,8 +9,8 @@ namespace App.Assemblers
 {
     public abstract class Assembler : IAssembler, IDisposable
     {
-        private readonly Queue<IAssemblerPart> _assemblerParts = new();
-        private readonly CancellationTokenSource _tokenSource = new();
+        private readonly Queue<IAssemblerPart> _assemblerParts = new Queue<IAssemblerPart>();
+        private readonly CancellationTokenSource _tokenSource = new CancellationTokenSource();
 
         private int _servicesCount;
         private int _currentStepCount;
