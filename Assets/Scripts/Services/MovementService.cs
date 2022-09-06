@@ -42,11 +42,14 @@ namespace App.Services
                 return;
             }
 
-            var direction = (Vector3.right * _inputService.Horizontal).normalized;
-            var totalDirection = direction * _gameConfigProvider.PlayerLateralSpeed +
-                                 Vector3.forward * _gameConfigProvider.PlayerForwardSpeed;
+            var movement = Vector3.forward * _gameConfigProvider.PlayerForwardSpeed;
             
-            _playerViewModel.Transform.Translate(totalDirection * Time.deltaTime);
+            if (Mathf.Abs(_inputService.Horizontal) > _gameConfigProvider.PlayerLateralMovementOffset)
+            {
+                movement += (Vector3.right * _inputService.Horizontal).normalized * _gameConfigProvider.PlayerLateralSpeed;
+            }
+
+            _playerViewModel.Transform.Translate(movement * Time.deltaTime);
         }
     }
 }

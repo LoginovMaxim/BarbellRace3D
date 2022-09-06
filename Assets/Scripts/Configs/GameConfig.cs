@@ -9,6 +9,7 @@ namespace Configs
         [Header("Player")]
         [SerializeField] private float _playerLateralSpeed;
         [SerializeField] private float _playerForwardSpeed;
+        [SerializeField] [Range(0, 1)] private float _playerLateralMovementOffset;
         
         [Header("Environment")]
         [SerializeField] private float _roadWidth;
@@ -21,6 +22,7 @@ namespace Configs
 
         float IGameConfigProvider.PlayerLateralSpeed => _playerLateralSpeed;
         float IGameConfigProvider.PlayerForwardSpeed => _playerForwardSpeed;
+        float IGameConfigProvider.PlayerLateralMovementOffset => _playerLateralMovementOffset;
         float IGameConfigProvider.RoadWidth => _roadWidth;
         public float CameraSmooth => _cameraSmooth;
         public Vector3 CameraRunOffset => _cameraRunOffset;

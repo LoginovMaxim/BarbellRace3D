@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3341dff2236549e4924212701d3ce5ef, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  _playerLateralSpeed: 4
+  _playerLateralSpeed: 3.33
   _playerForwardSpeed: 2
   _roadWidth: 5
   _cameraSmooth: 10

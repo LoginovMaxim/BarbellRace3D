@@ -6,6 +6,7 @@ namespace Providers
     {
         float PlayerLateralSpeed { get; }
         float PlayerForwardSpeed { get; }
+        float PlayerLateralMovementOffset { get; }
         float RoadWidth { get; }
         float CameraSmooth { get; }
         Vector3 CameraRunOffset { get; }
