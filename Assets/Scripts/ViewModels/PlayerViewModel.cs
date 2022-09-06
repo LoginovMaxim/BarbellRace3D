@@ -1,4 +1,5 @@
-﻿using App.UI;
+﻿using System;
+using App.UI;
 using UnityEngine;
 using UnityWeld.Binding;
 using Zenject;
@@ -10,12 +11,24 @@ namespace ViewModels
         private static readonly int IsRunAnimator = Animator.StringToHash("IsRun");
         
         [SerializeField] private Animator _animator;
+        [SerializeField] private Transform _leftHandPivot;
+        [SerializeField] private Transform _rightHandPivot;
+        [SerializeField] private Transform _leftHandPivotTarget;
+        [SerializeField] private Transform _rightHandPivotTarget;
 
         private bool _isRun;
         
         [Inject] public void Inject(Vector3 position)
         {
             transform.transform.position = position;
+        }
+
+        private void Update()
+        {
+            _leftHandPivot.position = _leftHandPivotTarget.position;
+            _leftHandPivot.rotation = _leftHandPivotTarget.rotation;
+            _rightHandPivot.position = _rightHandPivotTarget.position;
+            _rightHandPivot.rotation = _rightHandPivotTarget.rotation;
         }
 
         private void SetAnimatorRun(bool value)
