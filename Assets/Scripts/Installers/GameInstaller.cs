@@ -22,7 +22,7 @@ namespace Installers
 
             // factories
             Container.BindFactory<Vector3, PlayerViewModel, PlayerViewModel.Factory>().FromComponentInNewPrefab(PlayerViewModel).AsSingle().NonLazy();
-            Container.Bind<PlayerViewModel>().FromComponentInHierarchy().AsSingle().NonLazy();
+            Container.BindInterfacesTo<PlayerViewModel>().FromComponentInHierarchy().AsSingle().NonLazy();
             
             // scene monos needed factories
             Container.Bind<CameraFollow>().FromComponentInHierarchy().AsSingle().NonLazy();

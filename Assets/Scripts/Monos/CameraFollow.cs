@@ -10,9 +10,9 @@ namespace App.Monos
         private Transform _target;
         private IGameConfigProvider _gameConfigProvider;
 
-        [Inject] public void Inject(PlayerViewModel playerViewModel, IGameConfigProvider gameConfigProvider)
+        [Inject] public void Inject(IPlayerViewModel playerViewModel, IGameConfigProvider gameConfigProvider)
         {
-            _target = playerViewModel.transform;
+            _target = playerViewModel.Transform;
             _gameConfigProvider = gameConfigProvider;
         }
 

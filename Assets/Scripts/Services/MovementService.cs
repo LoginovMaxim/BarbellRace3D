@@ -9,12 +9,12 @@ namespace App.Services
     {
         private readonly IInputService _inputService;
         private readonly IGameConfigProvider _gameConfigProvider;
-        private readonly Transform _target;
-
+        private readonly IPlayerViewModel _playerViewModel;
+        
         public MovementService(
             IInputService inputService,
             IGameConfigProvider gameConfigProvider,
-            PlayerViewModel playerViewModel,
+            IPlayerViewModel playerViewModel,
             IMonoUpdater monoUpdater, 
             UpdateType updateType, 
             bool isImmediateStart) : 
@@ -22,20 +22,22 @@ namespace App.Services
         {
             _inputService = inputService;
             _gameConfigProvider = gameConfigProvider;
-            _target = playerViewModel.transform;
+            _playerViewModel = playerViewModel;
         }
 
         protected override void Update()
         {
-            var lateralPosition = _target.transform.position.x;
+            _playerViewModel.IsRun = _inputService.IsInputActive;
+            
+            var lateralPosition = _playerViewModel.Transform.position.x;
             if (Mathf.Abs(lateralPosition) > _gameConfigProvider.RoadWidth / 2f)
             {
                 var offsetDirection = lateralPosition > 0 ? Vector3.left : Vector3.right;
-                _target.transform.Translate(offsetDirection * Time.deltaTime);
+                _playerViewModel.Transform.Translate(offsetDirection * Time.deltaTime);
                 return;
             }
 
-            if (_inputService.Horizontal == 0)
+            if (!_inputService.IsInputActive)
             {
                 return;
             }
@@ -44,7 +46,7 @@ namespace App.Services
             var totalDirection = direction * _gameConfigProvider.PlayerLateralSpeed +
                                  Vector3.forward * _gameConfigProvider.PlayerForwardSpeed;
             
-            _target.transform.Translate(totalDirection * Time.deltaTime);
+            _playerViewModel.Transform.Translate(totalDirection * Time.deltaTime);
         }
     }
 }

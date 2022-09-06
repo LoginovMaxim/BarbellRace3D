@@ -9,15 +9,13 @@ namespace App.Assemblers.Parts
         private readonly IGameSpawnManager _gameSpawnManager;
         private readonly PlayerViewModel.Factory _playerViewModelFactory;
 
-        private PlayerViewModel _playerViewModel;
-
         public GameBuilder(
             IGameSpawnManager gameSpawnManager,
             PlayerViewModel.Factory playerViewModelFactory)
         {
             _gameSpawnManager = gameSpawnManager;
             _playerViewModelFactory = playerViewModelFactory;
-            _playerViewModel = _playerViewModelFactory.Create(_gameSpawnManager.PlayerSpawnPosition);
+            _playerViewModelFactory.Create(_gameSpawnManager.PlayerSpawnPosition);
         }
 
         public Task Launch()
