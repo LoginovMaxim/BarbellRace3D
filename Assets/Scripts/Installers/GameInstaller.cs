@@ -3,6 +3,8 @@ using App.Assemblers;
 using App.Assemblers.Parts;
 using App.Monos;
 using App.Services;
+using Commands;
+using Signals;
 using UnityEngine;
 using Utils;
 using ViewModels;
@@ -16,6 +18,9 @@ namespace Installers
         
         public override void InstallBindings()
         {
+            // signals
+            Container.DeclareSignal<TakeDiskSignal>();
+            
             // scene monos
             Container.Bind<Joystick>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.BindInterfacesTo<GameSpawnManager>().FromComponentInHierarchy().AsSingle().NonLazy();
@@ -33,6 +38,9 @@ namespace Installers
 
             // assembler parts
             Container.Bind<GameBuilder>().AsSingle().NonLazy();
+            
+            // commands
+            Container.Bind<TakeDiskCommand>().AsSingle().NonLazy();
 
             // assembler
             Container.BindAssembler<GameAssembler>(new List<IAssemblerPart>

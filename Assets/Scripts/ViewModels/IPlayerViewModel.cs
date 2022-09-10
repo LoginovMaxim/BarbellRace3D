@@ -6,5 +6,6 @@ namespace ViewModels
     {
         Transform Transform { get; }
         bool IsRun { get; set; }
+        int DiskCount { get; set; }
     }
 }
