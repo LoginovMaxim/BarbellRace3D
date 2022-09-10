@@ -20,6 +20,7 @@ namespace Installers
         {
             // signals
             Container.DeclareSignal<TakeDiskSignal>();
+            Container.DeclareSignal<SwitchMovementSignal>();
             
             // scene monos
             Container.Bind<Joystick>().FromComponentInHierarchy().AsSingle().NonLazy();
@@ -34,13 +35,15 @@ namespace Installers
             
             // services
             Container.BindService<InputService>(UpdateType.Update, true);
-            Container.BindService<MovementService>(UpdateType.Update, true);
+            Container.BindService<CommonMovementService>(UpdateType.Update, true);
+            Container.BindService<TubeMovementService>(UpdateType.Update);
 
             // assembler parts
             Container.Bind<GameBuilder>().AsSingle().NonLazy();
             
             // commands
             Container.Bind<TakeDiskCommand>().AsSingle().NonLazy();
+            Container.Bind<SwitchMovementCommand>().AsSingle().NonLazy();
 
             // assembler
             Container.BindAssembler<GameAssembler>(new List<IAssemblerPart>

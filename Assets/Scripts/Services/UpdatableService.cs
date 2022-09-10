@@ -70,12 +70,12 @@ namespace App.Services
             LateUpdate();
         }
         
-        private void Pause()
+        protected void Pause()
         {
             _isPause = true;
         }
 
-        private void UnPause()
+        protected void UnPause()
         {
             _isPause = false;
         }

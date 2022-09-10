@@ -1,55 +1,34 @@
 ﻿using App.Monos;
-using Providers;
-using UnityEngine;
-using ViewModels;
+using Views;
 
 namespace App.Services
 {
-    public sealed class MovementService : UpdatableService, IMovementService
+    public abstract class MovementService : UpdatableService, IMovement
     {
-        private readonly IInputService _inputService;
-        private readonly IGameConfigProvider _gameConfigProvider;
-        private readonly IPlayerViewModel _playerViewModel;
+        protected abstract MovementType MovementType { get; }
         
-        public MovementService(
-            IInputService inputService,
-            IGameConfigProvider gameConfigProvider,
-            IPlayerViewModel playerViewModel,
+        protected MovementService(
             IMonoUpdater monoUpdater, 
             UpdateType updateType, 
             bool isImmediateStart) : 
             base(monoUpdater, updateType, isImmediateStart)
         {
-            _inputService = inputService;
-            _gameConfigProvider = gameConfigProvider;
-            _playerViewModel = playerViewModel;
         }
+        
+        #region IMovement
 
-        protected override void Update()
+        MovementType IMovement.MovementType => MovementType;
+
+        void IMovement.Pause()
         {
-            _playerViewModel.IsRun = _inputService.IsInputActive;
-            
-            var lateralPosition = _playerViewModel.Transform.position.x;
-            if (Mathf.Abs(lateralPosition) > _gameConfigProvider.RoadWidth / 2f)
-            {
-                var offsetDirection = lateralPosition > 0 ? Vector3.left : Vector3.right;
-                _playerViewModel.Transform.Translate(offsetDirection * Time.deltaTime);
-                return;
-            }
-
-            if (!_inputService.IsInputActive)
-            {
-                return;
-            }
-
-            var movement = Vector3.forward * _gameConfigProvider.PlayerForwardSpeed;
-            
-            if (Mathf.Abs(_inputService.Horizontal) > _gameConfigProvider.PlayerLateralMovementOffset)
-            {
-                movement += Vector3.right * _inputService.Horizontal * _gameConfigProvider.PlayerLateralSpeed;
-            }
-
-            _playerViewModel.Transform.Translate(movement * Time.deltaTime);
+            Pause();
         }
+
+        void IMovement.UnPause()
+        {
+            UnPause();
+        }
+
+        #endregion
     }
 }

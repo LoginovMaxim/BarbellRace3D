@@ -106,6 +106,11 @@ namespace ViewModels
                 _signalBus.Fire(new TakeDiskSignal(disk));
                 Destroy(disk.gameObject);
             }
+            
+            if (other.gameObject.TryGetComponent<MovementTrigger>(out var movementTrigger))
+            {
+                _signalBus.Fire(new SwitchMovementSignal(movementTrigger.MovementType));
+            }
         }
 
         #region IPlayerViewModel
