@@ -1,12 +1,14 @@
-﻿namespace Signals
+﻿using Views;
+
+namespace Signals
 {
     public sealed class TakeDiskSignal
     {
-        public int DiskCount { get; private set; }
+        public Disk Disk { get; }
 
-        public TakeDiskSignal(int diskCount)
+        public TakeDiskSignal(Disk disk)
         {
-            DiskCount = diskCount;
+            Disk = disk;
         }
     }
 }

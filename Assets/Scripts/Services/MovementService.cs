@@ -46,7 +46,7 @@ namespace App.Services
             
             if (Mathf.Abs(_inputService.Horizontal) > _gameConfigProvider.PlayerLateralMovementOffset)
             {
-                movement += (Vector3.right * _inputService.Horizontal).normalized * _gameConfigProvider.PlayerLateralSpeed;
+                movement += Vector3.right * _inputService.Horizontal * _gameConfigProvider.PlayerLateralSpeed;
             }
 
             _playerViewModel.Transform.Translate(movement * Time.deltaTime);

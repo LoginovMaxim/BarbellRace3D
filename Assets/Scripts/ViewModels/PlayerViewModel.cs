@@ -1,4 +1,5 @@
-﻿using App.UI;
+﻿using System;
+using App.UI;
 using Signals;
 using UnityEngine;
 using UnityWeld.Binding;
@@ -14,10 +15,12 @@ namespace ViewModels
         [SerializeField] private Animator _animator;
         [SerializeField] private Transform _leftStackParent;
         [SerializeField] private Transform _rightStackParent;
+        [SerializeField] private Transform _barbellParent;
 
         private SignalBus _signalBus;
         private bool _isRun;
-        private int _diskCount;
+        private int _leftDiskCount;
+        private int _rightDiskCount;
         
         [Inject] public void Inject(Vector3 position, SignalBus signalBus)
         {
@@ -30,7 +33,52 @@ namespace ViewModels
             _animator.SetBool(IsRunAnimator, value);
         }
 
-        private void SetViewStack()
+        private void SetViewLeftStack()
+        {
+            if (_leftDiskCount > _leftStackParent.childCount)
+            {
+                _leftDiskCount = _leftStackParent.childCount;
+            }
+            
+            var childIndex = 0;
+            foreach (Transform child in _leftStackParent)
+            {
+                child.gameObject.SetActive(childIndex == _leftDiskCount - 1);
+                childIndex++;
+            }
+        }
+
+        private void SetViewRightStack()
+        {
+            if (_rightDiskCount > _rightStackParent.childCount)
+            {
+                _rightDiskCount = _rightStackParent.childCount;
+            }
+            
+            var childIndex = 0;
+            foreach (Transform child in _rightStackParent)
+            {
+                child.gameObject.SetActive(childIndex == _rightDiskCount - 1);
+                childIndex++;
+            }
+        }
+
+        private void Update()
+        {
+            SetBarbellRotation();
+        }
+
+        private void SetBarbellRotation()
+        {
+            var differentDiskCount = _leftDiskCount - _rightDiskCount;
+
+            var rotation = _barbellParent.localRotation.eulerAngles;
+            rotation.z = differentDiskCount * 2;
+
+            _barbellParent.localRotation = Quaternion.Lerp(_barbellParent.localRotation,Quaternion.Euler(rotation), Time.deltaTime * 10);
+        }
+
+        /*private void SetViewStack()
         {
             var isLeftSide = _diskCount % 2 == 0;
             var stackParent = isLeftSide ? _leftStackParent : _rightStackParent;
@@ -49,13 +97,13 @@ namespace ViewModels
                 child.gameObject.SetActive(childIndex == diskCount);
                 childIndex++;
             }
-        }
+        }*/
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.TryGetComponent<Disk>(out var disk))
             {
-                _signalBus.Fire(new TakeDiskSignal(disk.DiskCount));
+                _signalBus.Fire(new TakeDiskSignal(disk));
                 Destroy(disk.gameObject);
             }
         }
@@ -82,18 +130,36 @@ namespace ViewModels
             }
         }
 
-        int IPlayerViewModel.DiskCount
+        int IPlayerViewModel.LeftDiskCount
         {
-            get { return _diskCount; }
+            get
+            {
+                return _leftDiskCount;
+            }
             set
             {
-                if (_diskCount == value)
+                if (_leftDiskCount == value)
                 {
                     return;
                 }
 
-                _diskCount = value;
-                SetViewStack();
+                _leftDiskCount = value;
+                SetViewLeftStack();
+            }
+        }
+
+        int IPlayerViewModel.RightDiskCount
+        {
+            get { return _rightDiskCount; }
+            set
+            {
+                if (_rightDiskCount == value)
+                {
+                    return;
+                }
+
+                _rightDiskCount = value;
+                SetViewRightStack();
             }
         }
 
