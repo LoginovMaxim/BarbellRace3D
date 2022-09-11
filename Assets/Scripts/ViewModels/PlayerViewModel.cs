@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using App.UI;
 using Signals;
 using UnityEngine;
@@ -16,6 +17,15 @@ namespace ViewModels
         [SerializeField] private Transform _leftStackParent;
         [SerializeField] private Transform _rightStackParent;
         [SerializeField] private Transform _barbellParent;
+        [SerializeField] private Transform _tubeRoundParent;
+
+        [SerializeField] private List<Vector3> _movementBuffer;
+
+        public List<Vector3> MovementBuffer
+        {
+            get => _movementBuffer;
+            set => _movementBuffer = value;
+        }
 
         private SignalBus _signalBus;
         private bool _isRun;
@@ -167,6 +177,8 @@ namespace ViewModels
                 SetViewRightStack();
             }
         }
+
+        Transform IPlayerViewModel.TubeRoundParent => _tubeRoundParent;
 
         #endregion
 

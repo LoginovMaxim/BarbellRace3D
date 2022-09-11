@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3341dff2236549e4924212701d3ce5ef, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  _playerLateralSpeed: 5
+  _playerLateralSpeed: 4
   _playerForwardSpeed: 5
   _playerLateralMovementOffset: 0.4
   _roadWidth: 5

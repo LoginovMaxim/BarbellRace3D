@@ -16,7 +16,7 @@ namespace App.Monos
             _gameConfigProvider = gameConfigProvider;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             var targetPosition = _target.position + _gameConfigProvider.CameraRunOffset;
             var pursuitSmooth = _gameConfigProvider.CameraSmooth * Time.deltaTime;
