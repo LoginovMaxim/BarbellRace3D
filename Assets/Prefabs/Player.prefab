@@ -668,6 +668,7 @@ MonoBehaviour:
   _rightStackParent: {fileID: 1263131394939771556}
   _barbellParent: {fileID: 4537157951476911708}
   _tubeRoundParent: {fileID: 2757341458378718730}
+  _movementBuffer: []
 --- !u!114 &5602313738863918187
 MonoBehaviour:
   m_ObjectHideFlags: 0
