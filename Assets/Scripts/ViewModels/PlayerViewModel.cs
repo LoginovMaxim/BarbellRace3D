@@ -13,19 +13,12 @@ namespace ViewModels
     {
         private static readonly int IsRunAnimator = Animator.StringToHash("IsRun");
         
+        [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Animator _animator;
         [SerializeField] private Transform _leftStackParent;
         [SerializeField] private Transform _rightStackParent;
         [SerializeField] private Transform _barbellParent;
         [SerializeField] private Transform _tubeRoundParent;
-
-        [SerializeField] private List<Vector3> _movementBuffer;
-
-        public List<Vector3> MovementBuffer
-        {
-            get => _movementBuffer;
-            set => _movementBuffer = value;
-        }
 
         private SignalBus _signalBus;
         private bool _isRun;
@@ -126,6 +119,7 @@ namespace ViewModels
         #region IPlayerViewModel
 
         Transform IPlayerViewModel.Transform => transform;
+        Rigidbody IPlayerViewModel.Rigidbody => _rigidbody;
 
         bool IPlayerViewModel.IsRun
         {
@@ -165,7 +159,10 @@ namespace ViewModels
 
         int IPlayerViewModel.RightDiskCount
         {
-            get { return _rightDiskCount; }
+            get
+            {
+                return _rightDiskCount;
+            }
             set
             {
                 if (_rightDiskCount == value)

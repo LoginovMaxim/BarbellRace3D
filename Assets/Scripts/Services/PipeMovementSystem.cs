@@ -8,7 +8,9 @@ namespace App.Services
 {
     public sealed class PipeMovementSystem : MovementSystem, IPipeMovementService
     {
-        public override MovementType MovementType => MovementType.Tube;
+        public override MovementType MovementType => MovementType.Pipe;
+
+        private float _angle;
         
         public PipeMovementSystem(
             IInputService inputService,
@@ -25,6 +27,17 @@ namespace App.Services
         {
             PlayerViewModel.IsRun = InputService.IsInputActive;
 
+            var playerRotationZ = PlayerViewModel.Transform.localRotation.eulerAngles.z;
+
+            if (playerRotationZ > 180)
+            {
+                playerRotationZ -= 360;
+            }
+            
+            var angle = _angle + playerRotationZ * GameConfigProvider.PlayerPipeMovementSpeed * Time.deltaTime;
+            PlayerViewModel.Transform.RotateAround(PlayerViewModel.TubeRoundParent.position, Vector3.forward, angle);
+
+            _angle = 0;
             if (!InputService.IsInputActive)
             {
                 return;
@@ -33,19 +46,11 @@ namespace App.Services
             var centerPosition = PlayerViewModel.Transform.position;
             centerPosition.x = 0;
             
-            var movement = Vector3.forward * GameConfigProvider.PlayerForwardSpeed * 0.25f;
-            movement += (centerPosition - PlayerViewModel.Transform.position) * GameConfigProvider.PlayerLateralSpeed;
+            var movement = Vector3.forward * GameConfigProvider.PlayerPipeMovementSpeed;
+            movement += (centerPosition - PlayerViewModel.Transform.position) * GameConfigProvider.PlayerLateralSpeed * GetWeightCoefficient();
 
             PlayerViewModel.Transform.Translate(movement * Time.deltaTime);
-
-            var playerAngle = Mathf.Abs(PlayerViewModel.Transform.rotation.z);
-            var angle = -InputService.Horizontal * Time.deltaTime * 10;
-            if (playerAngle > 1)
-            {
-                angle *= playerAngle * 10f;
-            }
-                
-            PlayerViewModel.Transform.RotateAround(PlayerViewModel.TubeRoundParent.position, Vector3.forward, angle);
+            _angle = -InputService.Horizontal * GameConfigProvider.PlayerPipeFallSpeed * Time.deltaTime;
         }
         
         protected override void OnPaused()

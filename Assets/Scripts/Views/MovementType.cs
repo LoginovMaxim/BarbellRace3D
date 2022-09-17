@@ -3,7 +3,7 @@
     public enum MovementType
     {
         Common,
-        Tube,
+        Pipe,
         Ice
     }
 }

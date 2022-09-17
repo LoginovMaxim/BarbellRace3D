@@ -35,9 +35,9 @@ namespace Installers
             
             // services
             Container.BindService<InputService>(UpdateType.Update, true);
-            Container.BindService<CommonMovementSystem>(UpdateType.Update, true);
+            Container.BindService<CommonMovementSystem>(UpdateType.FixedUpdate, true);
             Container.BindService<PipeMovementSystem>(UpdateType.Update);
-            Container.BindService<IceMovementSystem>(UpdateType.Update);
+            Container.BindService<IceMovementSystem>(UpdateType.FixedUpdate);
 
             // assembler parts
             Container.Bind<GameBuilder>().AsSingle().NonLazy();
