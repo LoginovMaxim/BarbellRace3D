@@ -6,6 +6,8 @@ namespace Providers
     {
         float PlayerForwardSpeed { get; }
         float PlayerLateralSpeed { get; }
+        float PlayerLimitSpeed { get; }
+        float PlayerGravitationForce { get; }
         float PlayerLateralMovementOffset { get; }
         float PlayerPipeMovementSpeed { get; }
         float PlayerPipeFallSpeed { get; }

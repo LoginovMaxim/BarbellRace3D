@@ -9,6 +9,8 @@ namespace Configs
         [Header("Common movement")]
         [SerializeField] private float _playerForwardSpeed;
         [SerializeField] private float _playerLateralSpeed;
+        [SerializeField] private float _playerLimitForce;
+        [SerializeField] private float _playerGravitationForce;
         [SerializeField] [Range(0, 1)] private float _playerLateralMovementOffset;
         
         [Header("Pipe movement")]
@@ -31,6 +33,8 @@ namespace Configs
 
         float IGameConfigProvider.PlayerForwardSpeed => _playerForwardSpeed;
         float IGameConfigProvider.PlayerLateralSpeed => _playerLateralSpeed;
+        float IGameConfigProvider.PlayerLimitSpeed => _playerLimitForce;
+        float IGameConfigProvider.PlayerGravitationForce => _playerGravitationForce;
         float IGameConfigProvider.PlayerLateralMovementOffset => _playerLateralMovementOffset;
         float IGameConfigProvider.PlayerPipeMovementSpeed => _playerPipeMovementSpeed;
         float IGameConfigProvider.PlayerPipeFallSpeed => _playerPipeFallSpeed;

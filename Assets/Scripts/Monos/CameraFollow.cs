@@ -19,8 +19,7 @@ namespace App.Monos
         private void LateUpdate()
         {
             var targetPosition = _target.position + _gameConfigProvider.CameraRunOffset;
-            var pursuitSmooth = _gameConfigProvider.CameraSmooth * Time.deltaTime;
-            transform.position = Vector3.Lerp(transform.position, targetPosition, pursuitSmooth);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, _gameConfigProvider.CameraSmooth);
         }
     }
 }

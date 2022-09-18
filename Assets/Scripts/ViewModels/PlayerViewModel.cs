@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using App.UI;
+﻿using App.UI;
 using Signals;
 using UnityEngine;
 using UnityWeld.Binding;
@@ -22,6 +20,7 @@ namespace ViewModels
 
         private SignalBus _signalBus;
         private bool _isRun;
+        private bool _isGrounded;
         private int _leftDiskCount;
         private int _rightDiskCount;
         
@@ -137,6 +136,12 @@ namespace ViewModels
                 _isRun = value;
                 SetAnimatorRun(_isRun);
             }
+        }
+
+        bool IPlayerViewModel.IsGrounded
+        {
+            get => _isGrounded;
+            set => _isGrounded = value;
         }
 
         int IPlayerViewModel.LeftDiskCount

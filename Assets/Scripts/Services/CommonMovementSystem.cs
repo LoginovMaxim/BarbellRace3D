@@ -10,6 +10,8 @@ namespace App.Services
     {
         public override MovementType MovementType => MovementType.Common;
 
+        private Vector3 _movement;
+        
         public CommonMovementSystem(
             IInputService inputService, 
             IGameConfigProvider gameConfigProvider, 
@@ -25,32 +27,40 @@ namespace App.Services
         {
             PlayerViewModel.IsRun = InputService.IsInputActive;
             
-            /*var lateralPosition = PlayerViewModel.Transform.position.x;
-            if (Mathf.Abs(lateralPosition) > GameConfigProvider.RoadWidth / 2f)
-            {
-                var offsetDirection = lateralPosition > 0 ? Vector3.left : Vector3.right;
-                PlayerViewModel.Rigidbody.velocity = Vector3.zero;
-                PlayerViewModel.Rigidbody.velocity = offsetDirection * (GameConfigProvider.PlayerLateralSpeed / 2) * Time.deltaTime;
-                return;
-            }*/
-
             if (!InputService.IsInputActive)
             {
-                PlayerViewModel.Rigidbody.velocity = Vector3.zero;
                 return;
             }
 
-            var movement = Vector3.forward * GameConfigProvider.PlayerForwardSpeed;
+            _movement = PlayerViewModel.Transform.forward;
             
             if (Mathf.Abs(InputService.Horizontal) > GameConfigProvider.PlayerLateralMovementOffset)
             {
-                movement += Vector3.right * InputService.Horizontal * GameConfigProvider.PlayerLateralSpeed * GetWeightCoefficient();
+                _movement += PlayerViewModel.Transform.right * InputService.Horizontal;
             }
 
-            PlayerViewModel.Rigidbody.velocity = Vector3.zero;
-            //PlayerViewModel.Rigidbody.velocity = movement * Time.deltaTime;
-            PlayerViewModel.Rigidbody.AddForce(movement * Time.fixedDeltaTime, ForceMode.VelocityChange);
-            Debug.Log($"coefficient {movement}");
+            _movement.Normalize();
+            
+            var forwardDirection = Vector3.Project(_movement, Vector3.forward);
+            var lateralDirection = Vector3.Project(_movement, Vector3.right);
+
+            var forwardVelocity = forwardDirection * GameConfigProvider.PlayerForwardSpeed * Time.fixedDeltaTime;
+            var lateralVelocity = lateralDirection * GameConfigProvider.PlayerLateralSpeed * Time.fixedDeltaTime;
+
+            PlayerViewModel.Rigidbody.MovePosition(PlayerViewModel.Transform.position + forwardVelocity + lateralVelocity);
+        }
+
+        private void ControlSpeed()
+        {
+            var planeVelocity = new Vector3(PlayerViewModel.Rigidbody.velocity.x, 0f, PlayerViewModel.Rigidbody.velocity.z);
+
+            if (planeVelocity.magnitude < GameConfigProvider.PlayerLateralSpeed)
+            {
+                return;
+            }
+
+            planeVelocity = planeVelocity.normalized * GameConfigProvider.PlayerLateralSpeed;
+            PlayerViewModel.Rigidbody.velocity = new Vector3(planeVelocity.x, PlayerViewModel.Rigidbody.velocity.y, planeVelocity.z);
         }
         
         protected override void OnPaused()
@@ -62,6 +72,16 @@ namespace App.Services
         {
             PlayerViewModel.Rigidbody.isKinematic = false;
             PlayerViewModel.Transform.rotation = Quaternion.identity;
+        }
+
+        protected override void OnInputStarted()
+        {
+            // nothing
+        }
+
+        protected override void OnInputEnded()
+        {
+            PlayerViewModel.Rigidbody.velocity = Vector3.zero;
         }
     }
 }

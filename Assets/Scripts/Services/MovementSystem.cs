@@ -27,6 +27,9 @@ namespace App.Services
             InputService = inputService;
             GameConfigProvider = gameConfigProvider;
             PlayerViewModel = playerViewModel;
+
+            InputService.InputStarted += OnInputStarted;
+            InputService.InputEnded += OnInputEnded;
         }
 
         public void Enable()
@@ -43,6 +46,9 @@ namespace App.Services
 
         protected abstract void OnPaused();
         protected abstract void OnUnPaused();
+
+        protected abstract void OnInputStarted();
+        protected abstract void OnInputEnded();
 
         protected float GetWeightCoefficient()
         {
@@ -79,6 +85,12 @@ namespace App.Services
             }
 
             return coefficient / 1.5f + 0.33f;
+        }
+
+        protected override void Dispose()
+        {
+            InputService.InputStarted -= OnInputStarted;
+            InputService.InputEnded -= OnInputEnded;
         }
     }
 }

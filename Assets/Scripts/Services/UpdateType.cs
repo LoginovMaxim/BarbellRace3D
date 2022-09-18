@@ -1,9 +1,11 @@
-﻿namespace App.Services
+﻿using System;
+
+namespace App.Services
 {
-    public enum UpdateType
+    [Flags] public enum UpdateType
     {
-        Update,
-        FixedUpdate,
-        LateUpdate
+        Update = 1,
+        FixedUpdate = 2,
+        LateUpdate = 4
     }
 }

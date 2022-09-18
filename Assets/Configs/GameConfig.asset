@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3341dff2236549e4924212701d3ce5ef, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  _playerForwardSpeed: 300
-  _playerLateralSpeed: 300
+  _playerForwardSpeed: 4
+  _playerLateralSpeed: 5
+  _playerLimitForce: 100
+  _playerGravitationForce: 200
   _playerLateralMovementOffset: 0.4
   _playerPipeMovementSpeed: 1
   _playerPipeFallSpeed: 100
-  _playerIceForwardSpeed: 2
+  _playerIceForwardSpeed: 3
   _playerIceLateralSpeed: 50
   _playerIceFriction: 0.1
   _roadWidth: 5
-  _cameraSmooth: 10
+  _cameraSmooth: 1
   _cameraRunOffset: {x: 0, y: 2.5, z: -4}

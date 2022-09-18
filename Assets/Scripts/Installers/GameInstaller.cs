@@ -8,6 +8,7 @@ using Signals;
 using UnityEngine;
 using Utils;
 using ViewModels;
+using Views;
 using Zenject;
 
 namespace Installers
@@ -37,10 +38,13 @@ namespace Installers
             Container.BindService<InputService>(UpdateType.Update, true);
             Container.BindService<CommonMovementSystem>(UpdateType.FixedUpdate, true);
             Container.BindService<PipeMovementSystem>(UpdateType.Update);
-            Container.BindService<IceMovementSystem>(UpdateType.FixedUpdate);
+            Container.BindService<IceMovementSystem>(UpdateType.Update);
 
             // assembler parts
             Container.Bind<GameBuilder>().AsSingle().NonLazy();
+            
+            // views
+            //Container.Bind<GroundChecker>().FromComponentInHierarchy().AsSingle().NonLazy();
             
             // commands
             Container.Bind<TakeDiskCommand>().AsSingle().NonLazy();

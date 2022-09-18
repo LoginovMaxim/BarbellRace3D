@@ -9,6 +9,7 @@ namespace ViewModels
         bool IsRun { get; set; }
         int LeftDiskCount { get; set; }
         int RightDiskCount { get; set; }
+        bool IsGrounded { get; set; }
         Transform TubeRoundParent { get; }
     }
 }

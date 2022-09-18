@@ -41,10 +41,22 @@ namespace App.Services
 
         protected override void OnPaused()
         {
+             // nothing
         }
 
         protected override void OnUnPaused()
         {
+            // nothing
+        }
+
+        protected override void OnInputStarted()
+        {
+            // nothing
+        }
+
+        protected override void OnInputEnded()
+        {
+            // nothing
         }
     }
 }

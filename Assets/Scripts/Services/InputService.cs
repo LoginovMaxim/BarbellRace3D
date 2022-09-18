@@ -1,4 +1,5 @@
-﻿using App.Monos;
+﻿using System;
+using App.Monos;
 using UnityEngine;
 
 namespace App.Services
@@ -9,7 +10,10 @@ namespace App.Services
         
         private bool _isInputActive;
         private float _horizontal;
-    
+
+        public Action InputStarted { get; set; }
+        public Action InputEnded { get; set; }
+
         public InputService(
             Joystick joystick,
             IMonoUpdater monoUpdater, 
@@ -24,6 +28,16 @@ namespace App.Services
         {
             _isInputActive = Input.GetMouseButton(0);
             _horizontal = _joystick.Horizontal;
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                InputStarted.Invoke();
+            }
+            
+            if (Input.GetMouseButtonUp(0))
+            {
+                InputEnded.Invoke();
+            }
         }
 
         #region IInputService
