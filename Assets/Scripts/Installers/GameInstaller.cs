@@ -26,19 +26,24 @@ namespace Installers
             // scene monos
             Container.Bind<Joystick>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.BindInterfacesTo<GameSpawnManager>().FromComponentInHierarchy().AsSingle().NonLazy();
+            if (FindObjectOfType<GuidesView>())
+            {
+                Container.Bind<GuidesView>().FromComponentInHierarchy().AsSingle().NonLazy();
+            }
 
             // factories
             Container.BindFactory<Vector3, PlayerViewModel, PlayerViewModel.Factory>().FromComponentInNewPrefab(PlayerViewModel).AsSingle().NonLazy();
             Container.BindInterfacesTo<PlayerViewModel>().FromComponentInHierarchy().AsSingle().NonLazy();
             
             // scene monos needed factories
-            Container.Bind<CameraFollow>().FromComponentInHierarchy().AsSingle().NonLazy();
+            Container.BindInterfacesTo<CameraFollow>().FromComponentInHierarchy().AsSingle().NonLazy();
             
             // services
             Container.BindService<InputService>(UpdateType.Update, true);
             Container.BindService<CommonMovementSystem>(UpdateType.FixedUpdate, true);
             Container.BindService<PipeMovementSystem>(UpdateType.Update);
             Container.BindService<IceMovementSystem>(UpdateType.Update);
+            Container.BindService<GuidesMovementSystem>(UpdateType.Update);
 
             // assembler parts
             Container.Bind<GameBuilder>().AsSingle().NonLazy();

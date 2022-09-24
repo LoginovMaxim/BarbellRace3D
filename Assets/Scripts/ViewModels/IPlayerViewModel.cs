@@ -10,6 +10,7 @@ namespace ViewModels
         int LeftDiskCount { get; set; }
         int RightDiskCount { get; set; }
         bool IsGrounded { get; set; }
+        Transform BarbellParent { get; }
         Transform TubeRoundParent { get; }
     }
 }

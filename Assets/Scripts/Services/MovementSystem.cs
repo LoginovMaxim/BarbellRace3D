@@ -10,15 +10,18 @@ namespace App.Services
     public abstract class MovementSystem : UpdatableService, IMovement
     {
         public abstract MovementType MovementType { get; }
-        
+        public bool IsEnabled => !IsPause;
+
         protected readonly IInputService InputService;
         protected readonly IGameConfigProvider GameConfigProvider;
         protected readonly IPlayerViewModel PlayerViewModel;
+        protected readonly ICameraFollow CameraFollow;
         
         public MovementSystem(
             IInputService inputService,
             IGameConfigProvider gameConfigProvider,
             IPlayerViewModel playerViewModel,
+            ICameraFollow cameraFollow,
             IMonoUpdater monoUpdater, 
             UpdateType updateType, 
             bool isImmediateStart) : 
@@ -27,6 +30,7 @@ namespace App.Services
             InputService = inputService;
             GameConfigProvider = gameConfigProvider;
             PlayerViewModel = playerViewModel;
+            CameraFollow = cameraFollow;
 
             InputService.InputStarted += OnInputStarted;
             InputService.InputEnded += OnInputEnded;
@@ -34,18 +38,18 @@ namespace App.Services
 
         public void Enable()
         {
-            Pause();
-            OnPaused();
+            UnPause();
+            OnEnabled();
         }
 
         public void Disable()
         {
-            UnPause();
-            OnUnPaused();
+            Pause();
+            OnDisabled();
         }
 
-        protected abstract void OnPaused();
-        protected abstract void OnUnPaused();
+        protected abstract void OnEnabled();
+        protected abstract void OnDisabled();
 
         protected abstract void OnInputStarted();
         protected abstract void OnInputEnded();

@@ -17,10 +17,11 @@ namespace App.Services
             IInputService inputService, 
             IGameConfigProvider gameConfigProvider, 
             IPlayerViewModel playerViewModel, 
+            ICameraFollow cameraFollow,
             IMonoUpdater monoUpdater, 
             UpdateType updateType, 
             bool isImmediateStart) : 
-            base(inputService, gameConfigProvider, playerViewModel, monoUpdater, updateType, isImmediateStart)
+            base(inputService, gameConfigProvider, playerViewModel, cameraFollow, monoUpdater, updateType, isImmediateStart)
         {
         }
 
@@ -39,14 +40,14 @@ namespace App.Services
             _movement += Vector3.right * _horizontal * GameConfigProvider.PlayerIceLateralSpeed * GetWeightCoefficient();
         }
 
-        protected override void OnPaused()
-        {
-             // nothing
-        }
-
-        protected override void OnUnPaused()
+        protected override void OnEnabled()
         {
             // nothing
+        }
+
+        protected override void OnDisabled()
+        {
+             // nothing
         }
 
         protected override void OnInputStarted()

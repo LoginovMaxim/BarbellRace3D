@@ -6,7 +6,7 @@ namespace App.Services
     public abstract class UpdatableService : IUpdatableService, IDisposable
     {
         private readonly IMonoUpdater _monoUpdater;
-        private bool _isPause = true;
+        protected bool IsPause = true;
         
         protected UpdatableService(IMonoUpdater monoUpdater, UpdateType updateType, bool isImmediateStart)
         {
@@ -42,7 +42,7 @@ namespace App.Services
 
         private void OnUpdate()
         {
-            if (_isPause)
+            if (IsPause)
             {
                 return;
             }
@@ -52,7 +52,7 @@ namespace App.Services
         
         private void OnFixedUpdate()
         {
-            if (_isPause)
+            if (IsPause)
             {
                 return;
             }
@@ -62,7 +62,7 @@ namespace App.Services
         
         private void OnLateUpdate()
         {
-            if (_isPause)
+            if (IsPause)
             {
                 return;
             }
@@ -72,12 +72,12 @@ namespace App.Services
         
         protected void Pause()
         {
-            _isPause = true;
+            IsPause = true;
         }
 
         protected void UnPause()
         {
-            _isPause = false;
+            IsPause = false;
         }
         
         protected virtual void Dispose()
@@ -89,7 +89,7 @@ namespace App.Services
         
         #region IUpdateService
 
-        bool IUpdatableService.IsPaused => _isPause;
+        bool IUpdatableService.IsPaused => IsPause;
         
         void IUpdatableService.Pause()
         {

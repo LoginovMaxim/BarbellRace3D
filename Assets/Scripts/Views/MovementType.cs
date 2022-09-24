@@ -4,6 +4,7 @@
     {
         Common,
         Pipe,
-        Ice
+        Ice,
+        Guides,
     }
 }

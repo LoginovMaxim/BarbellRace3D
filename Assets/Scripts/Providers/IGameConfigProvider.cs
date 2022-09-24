@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using App.Monos;
+using UnityEngine;
 
 namespace Providers
 {
@@ -14,8 +17,17 @@ namespace Providers
         float PlayerIceForwardSpeed { get; }
         float PlayerIceLateralSpeed { get; }
         float PlayerIceFriction { get; }
+        Vector3 PlayerGuidesStartPosition { get; }
+        float PlayerGuidesMovementSpeed { get; }
         float RoadWidth { get; }
         float CameraSmooth { get; }
-        Vector3 CameraRunOffset { get; }
+        List<CameraData> CameraData { get; }
+    }
+
+    [Serializable] public struct CameraData
+    {
+        public CameraMode CameraMode;
+        public Vector3 Offset;
+        public Vector3 Rotation;
     }
 }

@@ -6,7 +6,7 @@ using Views;
 
 namespace App.Services
 {
-    public sealed class PipeMovementSystem : MovementSystem, IPipeMovementService
+    public sealed class PipeMovementSystem : MovementSystem, IPipeMovementSystem
     {
         public override MovementType MovementType => MovementType.Pipe;
 
@@ -16,10 +16,11 @@ namespace App.Services
             IInputService inputService,
             IGameConfigProvider gameConfigProvider,
             IPlayerViewModel playerViewModel,
+            ICameraFollow cameraFollow,
             IMonoUpdater monoUpdater, 
             UpdateType updateType, 
             bool isImmediateStart) : 
-            base(inputService, gameConfigProvider, playerViewModel, monoUpdater, updateType, isImmediateStart)
+            base(inputService, gameConfigProvider, playerViewModel, cameraFollow, monoUpdater, updateType, isImmediateStart)
         {
         }
 
@@ -52,13 +53,13 @@ namespace App.Services
             PlayerViewModel.Transform.Translate(movement * Time.deltaTime);
             _angle = -InputService.Horizontal * GameConfigProvider.PlayerPipeFallSpeed * Time.deltaTime;
         }
-        
-        protected override void OnPaused()
+
+        protected override void OnEnabled()
         {
             // nothing
         }
-
-        protected override void OnUnPaused()
+        
+        protected override void OnDisabled()
         {
             // nothing
         }

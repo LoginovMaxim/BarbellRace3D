@@ -182,6 +182,8 @@ namespace ViewModels
 
         Transform IPlayerViewModel.TubeRoundParent => _tubeRoundParent;
 
+        Transform IPlayerViewModel.BarbellParent => _barbellParent;
+
         #endregion
 
         public sealed class Factory : PlaceholderFactory<Vector3, PlayerViewModel>

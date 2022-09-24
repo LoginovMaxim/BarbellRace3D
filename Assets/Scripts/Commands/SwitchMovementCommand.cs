@@ -25,11 +25,21 @@ namespace Commands
             {
                 if (movement.MovementType == movementType)
                 {
-                    movement.Disable();
+                    if (movement.IsEnabled)
+                    {
+                        continue;
+                    }
+                    
+                    movement.Enable();
                 }
                 else
                 {
-                    movement.Enable();
+                    if (!movement.IsEnabled)
+                    {
+                        continue;
+                    }
+                    
+                    movement.Disable();
                 }
             }
         }

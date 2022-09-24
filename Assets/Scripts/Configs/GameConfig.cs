@@ -1,4 +1,5 @@
-﻿using Providers;
+﻿using System.Collections.Generic;
+using Providers;
 using UnityEngine;
 
 namespace Configs
@@ -22,12 +23,17 @@ namespace Configs
         [SerializeField] private float _playerIceLateralSpeed;
         [SerializeField] [Range(0, 1)] private float _playerIceFriction;
         
+        [Header("Guides movement")]
+        [SerializeField] private Vector3 _playerGuidesStartPosition;
+        [SerializeField] private float _playerGuidesMovementSpeed;
+        
         [Header("Environment")]
         [SerializeField] private float _roadWidth;
         
         [Header("Camera")]
         [SerializeField] private float _cameraSmooth;
-        [SerializeField] private Vector3 _cameraRunOffset;
+
+        [SerializeField] private List<CameraData> _cameraData;
 
         #region IGameConfigProvider
 
@@ -41,9 +47,11 @@ namespace Configs
         float IGameConfigProvider.PlayerIceForwardSpeed => _playerIceForwardSpeed;
         float IGameConfigProvider.PlayerIceLateralSpeed => _playerIceLateralSpeed;
         float IGameConfigProvider.PlayerIceFriction => _playerIceFriction;
+        Vector3 IGameConfigProvider.PlayerGuidesStartPosition => _playerGuidesStartPosition;
+        float IGameConfigProvider.PlayerGuidesMovementSpeed => _playerGuidesMovementSpeed;
         float IGameConfigProvider.RoadWidth => _roadWidth;
-        public float CameraSmooth => _cameraSmooth;
-        public Vector3 CameraRunOffset => _cameraRunOffset;
+        float IGameConfigProvider.CameraSmooth => _cameraSmooth;
+        List<CameraData> IGameConfigProvider.CameraData => _cameraData;
 
         #endregion
     }

@@ -6,7 +6,7 @@ using Views;
 
 namespace App.Services
 {
-    public sealed class CommonMovementSystem : MovementSystem, ICommonMovementService
+    public sealed class CommonMovementSystem : MovementSystem, ICommonMovementSystem
     {
         public override MovementType MovementType => MovementType.Common;
 
@@ -16,10 +16,11 @@ namespace App.Services
             IInputService inputService, 
             IGameConfigProvider gameConfigProvider, 
             IPlayerViewModel playerViewModel,
+            ICameraFollow cameraFollow,
             IMonoUpdater monoUpdater, 
             UpdateType updateType, 
             bool isImmediateStart) : 
-            base(inputService, gameConfigProvider, playerViewModel, monoUpdater, updateType, isImmediateStart)
+            base(inputService, gameConfigProvider, playerViewModel, cameraFollow, monoUpdater, updateType, isImmediateStart)
         {
         }
         
@@ -47,6 +48,7 @@ namespace App.Services
             var forwardVelocity = forwardDirection * GameConfigProvider.PlayerForwardSpeed * Time.fixedDeltaTime;
             var lateralVelocity = lateralDirection * GameConfigProvider.PlayerLateralSpeed * Time.fixedDeltaTime;
 
+            //PlayerViewModel.Rigidbody.AddForce(forwardVelocity + lateralVelocity);
             PlayerViewModel.Rigidbody.MovePosition(PlayerViewModel.Transform.position + forwardVelocity + lateralVelocity);
         }
 
@@ -62,16 +64,18 @@ namespace App.Services
             planeVelocity = planeVelocity.normalized * GameConfigProvider.PlayerLateralSpeed;
             PlayerViewModel.Rigidbody.velocity = new Vector3(planeVelocity.x, PlayerViewModel.Rigidbody.velocity.y, planeVelocity.z);
         }
-        
-        protected override void OnPaused()
-        {
-            PlayerViewModel.Rigidbody.isKinematic = true;
-        }
 
-        protected override void OnUnPaused()
+        protected override void OnEnabled()
         {
             PlayerViewModel.Rigidbody.isKinematic = false;
             PlayerViewModel.Transform.rotation = Quaternion.identity;
+            
+            CameraFollow.SetCameraMode(CameraMode.Run);
+        }
+        
+        protected override void OnDisabled()
+        {
+            PlayerViewModel.Rigidbody.isKinematic = true;
         }
 
         protected override void OnInputStarted()

@@ -1,6 +1,6 @@
 ﻿namespace App.Services
 {
-    public interface ICommonMovementService : IMovement
+    public interface ICommonMovementSystem : IMovement
     {
     }
 }
