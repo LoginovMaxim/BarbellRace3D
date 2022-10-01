@@ -1,8 +1,8 @@
-﻿using App.UI.Signals;
+﻿using UI.Signals;
 using UnityWeld.Binding;
 using Zenject;
 
-namespace App.UI.Popups.ViewModels
+namespace UI.Popups.ViewModels
 {
     [Binding] public abstract class PopupViewModel : ViewModel
     {

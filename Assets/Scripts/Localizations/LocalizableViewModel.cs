@@ -1,7 +1,7 @@
 ﻿using System;
-using App.UI;
+using UI;
 
-namespace App.Localizations
+namespace Localizations
 {
     public abstract class LocalizableViewModel : ViewModel, ILocalizable
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace App.Localizations
+namespace Localizations
 {
     [Serializable]
     public class LocalizationData

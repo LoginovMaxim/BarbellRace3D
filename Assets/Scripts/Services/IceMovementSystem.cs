@@ -1,10 +1,9 @@
-﻿using App.Monos;
+﻿using Monos;
 using Providers;
 using UnityEngine;
 using ViewModels;
-using Views;
 
-namespace App.Services
+namespace Services
 {
     public sealed class IceMovementSystem : MovementSystem, IIceMovementSystem
     {

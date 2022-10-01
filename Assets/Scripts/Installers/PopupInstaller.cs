@@ -1,8 +1,8 @@
-﻿using App.UI.Commands;
-using App.UI.Popups.Logics;
-using App.UI.Popups.ViewModels;
-using App.UI.Services;
-using App.UI.Signals;
+﻿using UI.Commands;
+using UI.Popups.Logics;
+using UI.Popups.ViewModels;
+using UI.Services;
+using UI.Signals;
 using UnityEngine;
 using Zenject;
 

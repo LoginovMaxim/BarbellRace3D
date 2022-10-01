@@ -1,8 +1,8 @@
 using System;
-using App.Services;
+using Services;
 using UnityEngine;
 
-namespace App.Monos
+namespace Monos
 {
     public class MonoUpdater : MonoBehaviour, IMonoUpdater
     {

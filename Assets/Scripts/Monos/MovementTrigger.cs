@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Services;
+using UnityEngine;
 
-namespace Views
+namespace Monos
 {
     public sealed class MovementTrigger : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace App.UI
+namespace UI
 {
     public abstract class ViewModel : MonoBehaviour, INotifyPropertyChanged
     {

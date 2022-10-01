@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace App.Monos
+namespace Monos
 {
     public class SceneLoader : MonoBehaviour, ISceneLoader
     {

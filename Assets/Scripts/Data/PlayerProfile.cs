@@ -1,4 +1,4 @@
-﻿namespace App.Data
+﻿namespace Data
 {
     public class PlayerProfile : IPlayerProfile
     {

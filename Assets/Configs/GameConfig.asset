@@ -19,7 +19,7 @@ MonoBehaviour:
   _playerLateralMovementOffset: 0.1
   _playerPipeMovementSpeed: 1.5
   _playerPipeFallSpeed: 100
-  _playerIceForwardSpeed: 3
+  _playerIceForwardSpeed: 1
   _playerIceLateralSpeed: 50
   _playerIceFriction: 0.075
   _playerGuidesStartPosition: {x: 0, y: -2, z: 0}

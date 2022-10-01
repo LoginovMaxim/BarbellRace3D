@@ -1,6 +1,6 @@
-﻿using App.UI.Popups;
+﻿using UI.Popups;
 
-namespace App.UI.Services
+namespace UI.Services
 {
     public interface IPopupService
     {

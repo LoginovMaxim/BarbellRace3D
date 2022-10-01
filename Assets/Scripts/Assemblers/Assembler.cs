@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Utils;
 
-namespace App.Assemblers
+namespace Assemblers
 {
     public abstract class Assembler : IAssembler, IDisposable
     {

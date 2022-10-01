@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using App.Monos;
+using Monos;
 using UnityEngine;
 
 namespace Providers

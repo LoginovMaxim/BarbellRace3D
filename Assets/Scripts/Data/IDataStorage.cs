@@ -1,4 +1,4 @@
-﻿namespace App.Data
+﻿namespace Data
 {
     public interface IDataStorage<T> where T : IData
     {

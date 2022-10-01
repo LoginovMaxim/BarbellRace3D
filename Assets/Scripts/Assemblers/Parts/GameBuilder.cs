@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using App.Monos;
+using Monos;
 using ViewModels;
 
-namespace App.Assemblers.Parts
+namespace Assemblers.Parts
 {
     public sealed class GameBuilder : IAssemblerPart
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using App.Localizations;
+using Localizations;
 using UnityWeld.Binding;
 using Zenject;
 
-namespace App.UI.Screens.ViewModels
+namespace UI.Screens.ViewModels
 {
     [Binding] public abstract class ScreenViewModel : LocalizableViewModel
     {

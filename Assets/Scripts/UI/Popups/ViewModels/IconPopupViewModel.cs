@@ -2,7 +2,7 @@
 using UnityWeld.Binding;
 using Zenject;
 
-namespace App.UI.Popups.ViewModels
+namespace UI.Popups.ViewModels
 {
     [Binding] public sealed class IconPopupViewModel : PopupViewModel
     {

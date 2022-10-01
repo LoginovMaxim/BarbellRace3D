@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using App.UI.Screens;
-using App.UI.Screens.Logics;
-using App.UI.Signals;
+using UI.Screens;
+using UI.Screens.Logics;
+using UI.Signals;
 using Zenject;
 
-namespace App.UI.Services
+namespace UI.Services
 {
     public sealed class ScreenService : IScreenService
     {

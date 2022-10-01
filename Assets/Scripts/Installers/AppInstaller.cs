@@ -1,6 +1,6 @@
-using App.Data;
-using App.Localizations;
-using App.Monos;
+using Data;
+using Localizations;
+using Monos;
 using UnityEngine;
 using VisualEffects;
 using Zenject;

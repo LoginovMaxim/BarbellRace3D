@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using App.UI.Popups;
-using App.UI.Popups.Logics;
+using UI.Popups;
+using UI.Popups.Logics;
 
-namespace App.UI.Services
+namespace UI.Services
 {
     public sealed class PopupService : IPopupService
     {

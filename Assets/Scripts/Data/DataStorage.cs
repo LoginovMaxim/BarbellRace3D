@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace App.Data
+namespace Data
 {
     public sealed class DataStorage<T> : IDataStorage<T>, IDisposable where T : IData
     {

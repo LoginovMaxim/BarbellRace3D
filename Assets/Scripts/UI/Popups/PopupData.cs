@@ -1,4 +1,4 @@
-﻿namespace App.UI.Popups
+﻿namespace UI.Popups
 {
     public class PopupData
     {

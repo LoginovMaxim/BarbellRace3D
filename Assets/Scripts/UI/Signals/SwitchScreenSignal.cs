@@ -1,6 +1,6 @@
-﻿using App.UI.Screens;
+﻿using UI.Screens;
 
-namespace App.UI.Signals
+namespace UI.Signals
 {
     public class SwitchScreenSignal
     {

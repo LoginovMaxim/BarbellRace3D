@@ -1,11 +1,9 @@
-﻿using System;
-using App.Monos;
+﻿using Monos;
 using Providers;
 using UnityEngine;
 using ViewModels;
-using Views;
 
-namespace App.Services
+namespace Services
 {
     public abstract class MovementSystem : UpdatableService, IMovement
     {

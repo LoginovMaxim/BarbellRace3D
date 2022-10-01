@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace App.Assemblers
+namespace Assemblers
 {
     public interface IAssemblerPart
     {

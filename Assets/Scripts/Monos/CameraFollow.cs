@@ -3,7 +3,7 @@ using UnityEngine;
 using ViewModels;
 using Zenject;
 
-namespace App.Monos
+namespace Monos
 {
     public sealed class CameraFollow : MonoBehaviour, ICameraFollow
     {

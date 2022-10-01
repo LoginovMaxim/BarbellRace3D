@@ -1,7 +1,7 @@
 ﻿using System;
-using App.Services;
+using Services;
 
-namespace App.Monos
+namespace Monos
 {
     public interface IMonoUpdater
     {

@@ -1,4 +1,4 @@
-﻿namespace App.Monos
+﻿namespace Monos
 {
     public enum CameraMode
     {

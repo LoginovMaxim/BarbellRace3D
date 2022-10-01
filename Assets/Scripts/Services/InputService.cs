@@ -1,8 +1,8 @@
 ﻿using System;
-using App.Monos;
+using Monos;
 using UnityEngine;
 
-namespace App.Services
+namespace Services
 {
     public class InputService : UpdatableService, IInputService
     {

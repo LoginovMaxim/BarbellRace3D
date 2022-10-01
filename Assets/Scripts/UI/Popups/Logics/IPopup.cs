@@ -1,4 +1,4 @@
-﻿namespace App.UI.Popups.Logics
+﻿namespace UI.Popups.Logics
 {
     public interface IPopup
     {

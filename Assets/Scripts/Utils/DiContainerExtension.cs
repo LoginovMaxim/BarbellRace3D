@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using App.Assemblers;
-using App.Services;
+using Assemblers;
+using Services;
 using Zenject;
 
 namespace Utils

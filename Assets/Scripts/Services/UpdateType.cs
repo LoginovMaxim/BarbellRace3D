@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace App.Services
+namespace Services
 {
     [Flags] public enum UpdateType
     {

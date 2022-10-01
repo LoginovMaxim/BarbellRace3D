@@ -1,6 +1,6 @@
-﻿using App.UI.Screens.ViewModels;
+﻿using UI.Screens.ViewModels;
 
-namespace App.UI.Screens.Logics
+namespace UI.Screens.Logics
 {
     public class MainScreen : BaseScreen
     {

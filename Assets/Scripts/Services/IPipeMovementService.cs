@@ -1,4 +1,4 @@
-﻿namespace App.Services
+﻿namespace Services
 {
     public interface IPipeMovementSystem : IMovement
     {

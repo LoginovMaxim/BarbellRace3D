@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace App.Data
+namespace Data
 {
     [Serializable] public class PlayerData : IData
     {

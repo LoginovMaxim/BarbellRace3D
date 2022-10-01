@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace App.Localizations
+namespace Localizations
 {
     public interface ILocalizationDataProvider
     {

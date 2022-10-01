@@ -1,7 +1,7 @@
 ﻿using System;
-using App.Monos;
+using Monos;
 
-namespace App.Services
+namespace Services
 {
     public abstract class UpdatableService : IUpdatableService, IDisposable
     {

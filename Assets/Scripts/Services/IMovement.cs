@@ -1,6 +1,4 @@
-﻿using Views;
-
-namespace App.Services
+﻿namespace Services
 {
     public interface IMovement
     {

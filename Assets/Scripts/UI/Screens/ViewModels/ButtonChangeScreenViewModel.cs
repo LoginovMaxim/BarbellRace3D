@@ -1,9 +1,9 @@
-﻿using App.UI.Signals;
+﻿using UI.Signals;
 using UnityEngine;
 using UnityWeld.Binding;
 using Zenject;
 
-namespace App.UI.Screens.ViewModels
+namespace UI.Screens.ViewModels
 {
     [Binding] public class ButtonChangeScreenViewModel : ViewModel
     {

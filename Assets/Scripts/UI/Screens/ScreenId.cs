@@ -1,4 +1,4 @@
-﻿namespace App.UI.Screens
+﻿namespace UI.Screens
 {
     public enum ScreenId
     {

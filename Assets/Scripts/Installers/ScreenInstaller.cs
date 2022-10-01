@@ -1,7 +1,7 @@
-﻿using App.UI.Screens.Logics;
-using App.UI.Screens.ViewModels;
-using App.UI.Services;
-using App.UI.Signals;
+﻿using UI.Screens.Logics;
+using UI.Screens.ViewModels;
+using UI.Services;
+using UI.Signals;
 using UnityEngine;
 using Zenject;
 

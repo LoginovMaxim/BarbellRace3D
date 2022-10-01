@@ -1,10 +1,10 @@
-﻿using App.Monos;
+﻿using Monos;
 using Providers;
 using UnityEngine;
 using ViewModels;
 using Views;
 
-namespace App.Services
+namespace Services
 {
     public sealed class GuidesMovementSystem : MovementSystem, IGuidesMovementSystem
     {
@@ -12,6 +12,7 @@ namespace App.Services
 
         private readonly GuidesView _guidesView;
 
+        private float _speed;
         private float _progress;
         private bool _isJumped;
         
@@ -33,7 +34,8 @@ namespace App.Services
         {
             PlayerViewModel.IsRun = false;
 
-            _progress += GameConfigProvider.PlayerGuidesMovementSpeed * Time.deltaTime;
+            _speed = Mathf.Lerp(_speed, GameConfigProvider.PlayerGuidesMovementSpeed, Time.deltaTime);
+            _progress += _speed * Time.deltaTime;
             _guidesView.Progress = _progress;
             
             PlayerViewModel.Transform.localPosition = GameConfigProvider.PlayerGuidesStartPosition;

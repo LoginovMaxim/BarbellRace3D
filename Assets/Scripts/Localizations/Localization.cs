@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using App.Assemblers;
-using App.Monos;
+using Assemblers;
+using Monos;
 
-namespace App.Localizations
+namespace Localizations
 {
     public class Localization : IAssemblerPart
     {

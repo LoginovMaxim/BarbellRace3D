@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using App.UI.Popups.ViewModels;
-using App.UI.Signals;
+using UI.Popups.ViewModels;
+using UI.Signals;
 using Zenject;
 
-namespace App.UI.Popups.Logics
+namespace UI.Popups.Logics
 {
     public sealed class IconPopup : IIconPopup
     {

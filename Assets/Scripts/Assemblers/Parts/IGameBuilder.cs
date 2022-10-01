@@ -1,4 +1,4 @@
-﻿namespace App.Assemblers.Parts
+﻿namespace Assemblers.Parts
 {
     public interface IGameBuilder
     {

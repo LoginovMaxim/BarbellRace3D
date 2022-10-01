@@ -1,4 +1,4 @@
-﻿namespace App.UI.Signals
+﻿namespace UI.Signals
 {
     public class ClosePopupSignal
     {

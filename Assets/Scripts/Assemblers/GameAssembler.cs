@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace App.Assemblers
+namespace Assemblers
 {
     public sealed class GameAssembler : Assembler, IGameAssembler
     {

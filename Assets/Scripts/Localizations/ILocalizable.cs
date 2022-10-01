@@ -1,4 +1,4 @@
-﻿namespace App.Localizations
+﻿namespace Localizations
 {
     public interface ILocalizable
     {

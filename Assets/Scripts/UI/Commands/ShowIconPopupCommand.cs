@@ -1,4 +1,4 @@
-﻿namespace App.UI.Commands
+﻿namespace UI.Commands
 {
     public sealed class ShowIconPopupCommand
     {

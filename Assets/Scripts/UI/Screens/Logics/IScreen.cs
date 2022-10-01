@@ -1,4 +1,4 @@
-﻿namespace App.UI.Screens.Logics
+﻿namespace UI.Screens.Logics
 {
     public interface IScreen
     {

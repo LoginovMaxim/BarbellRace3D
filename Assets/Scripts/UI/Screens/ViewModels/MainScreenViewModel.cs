@@ -1,7 +1,7 @@
 ﻿using UnityWeld.Binding;
 using Zenject;
 
-namespace App.UI.Screens.ViewModels
+namespace UI.Screens.ViewModels
 {
     [Binding] public sealed class MainScreenViewModel : ScreenViewModel
     {

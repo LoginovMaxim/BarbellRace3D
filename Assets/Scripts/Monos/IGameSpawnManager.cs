@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace App.Monos
+namespace Monos
 {
     public interface IGameSpawnManager
     {

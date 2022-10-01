@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace App.UI.Popups
+namespace UI.Popups
 {
     public class IconPopupData : PopupData
     {

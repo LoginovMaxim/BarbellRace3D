@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace App.Data
+namespace Data
 {
     public interface IData
     {
