@@ -21,14 +21,7 @@ namespace Commands
 
         private void OnTakeDisk(Disk disk)
         {
-            if (disk.transform.position.x < 0)
-            {
-                _playerViewModel.LeftDiskCount += disk.DiskCount;
-            }
-            else
-            {
-                _playerViewModel.RightDiskCount += disk.DiskCount;
-            }
+            _playerViewModel.DiskCount += disk.DiskCount;
         }
         
         private void Dispose()

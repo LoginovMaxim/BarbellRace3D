@@ -54,39 +54,8 @@ namespace Services
 
         protected float GetWeightCoefficient()
         {
-            var coefficient = 1f;
-            return coefficient;
-            
-            if (PlayerViewModel.LeftDiskCount > PlayerViewModel.RightDiskCount)
-            {
-                coefficient = Mathf.Max((float) PlayerViewModel.RightDiskCount / PlayerViewModel.LeftDiskCount, 0.1f);
-                coefficient = 1 - coefficient;
-
-                if (InputService.Horizontal < 0)
-                {
-                    coefficient = 1 + coefficient;
-                }
-                else if (InputService.Horizontal > 0)
-                {
-                    coefficient = 1 - coefficient;
-                }
-            }
-            else if (PlayerViewModel.RightDiskCount > PlayerViewModel.LeftDiskCount)
-            {
-                coefficient = Mathf.Max((float) PlayerViewModel.LeftDiskCount / PlayerViewModel.RightDiskCount, 0.1f);
-                coefficient = 1 - coefficient;
-                
-                if (InputService.Horizontal > 0)
-                {
-                    coefficient = 1 + coefficient;
-                }
-                else if (InputService.Horizontal < 0)
-                {
-                    coefficient = 1 - coefficient;
-                }
-            }
-
-            return coefficient / 1.5f + 0.33f;
+            var coefficient = PlayerViewModel.DiskCount / 40;
+            return 1 + coefficient;
         }
 
         protected override void Dispose()

@@ -22,6 +22,7 @@ namespace Installers
             // signals
             Container.DeclareSignal<TakeDiskSignal>();
             Container.DeclareSignal<SwitchMovementSignal>();
+            Container.DeclareSignal<DeathSignal>();
             
             // scene monos
             Container.Bind<Joystick>().FromComponentInHierarchy().AsSingle().NonLazy();
@@ -54,6 +55,7 @@ namespace Installers
             // commands
             Container.Bind<TakeDiskCommand>().AsSingle().NonLazy();
             Container.Bind<SwitchMovementCommand>().AsSingle().NonLazy();
+            Container.Bind<DeathCommand>().AsSingle().NonLazy();
 
             // assembler
             Container.BindAssembler<GameAssembler>(new List<IAssemblerPart>

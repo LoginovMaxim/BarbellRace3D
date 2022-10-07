@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2646403524554191969}
   - component: {fileID: 6951776567586263340}
+  - component: {fileID: 3927722566418792363}
   m_Layer: 0
   m_Name: DeadTrigger
   m_TagString: Untagged
@@ -42,8 +43,20 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3927722566418792363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 91066473333108465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56121ed2f4cc4c409aefcd30396ef94c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &671778171412804701
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +448,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6365489925188414731}
   - component: {fileID: 6752293137222406347}
+  - component: {fileID: 2478358638124006408}
   m_Layer: 0
   m_Name: DeadTrigger (1)
   m_TagString: Untagged
@@ -467,8 +481,20 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2478358638124006408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3404948356527415304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56121ed2f4cc4c409aefcd30396ef94c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8483084390882801630
 GameObject:
   m_ObjectHideFlags: 0

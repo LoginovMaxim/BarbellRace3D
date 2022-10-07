@@ -7,8 +7,7 @@ namespace ViewModels
         Transform Transform { get; }
         Rigidbody Rigidbody { get; }
         bool IsRun { get; set; }
-        int LeftDiskCount { get; set; }
-        int RightDiskCount { get; set; }
+        int DiskCount { get; set; }
         bool IsGrounded { get; set; }
         Transform BarbellParent { get; }
         Transform TubeRoundParent { get; }
