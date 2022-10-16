@@ -2,6 +2,7 @@
 using Providers;
 using UnityEngine;
 using ViewModels;
+using Views;
 
 namespace Services
 {
@@ -16,10 +17,11 @@ namespace Services
             IGameConfigProvider gameConfigProvider, 
             IPlayerViewModel playerViewModel,
             ICameraFollow cameraFollow,
+            BarbellView barbellView,
             IMonoUpdater monoUpdater, 
             UpdateType updateType, 
             bool isImmediateStart) : 
-            base(inputService, gameConfigProvider, playerViewModel, cameraFollow, monoUpdater, updateType, isImmediateStart)
+            base(inputService, gameConfigProvider, playerViewModel, cameraFollow, barbellView, monoUpdater, updateType, isImmediateStart)
         {
         }
         
@@ -32,23 +34,14 @@ namespace Services
                 return;
             }
 
-            _movement = PlayerViewModel.Transform.forward;
+            _movement = PlayerViewModel.Transform.forward * GameConfigProvider.PlayerForwardSpeed;
             
             if (Mathf.Abs(InputService.Horizontal) > GameConfigProvider.PlayerLateralMovementOffset)
             {
-                _movement += PlayerViewModel.Transform.right * InputService.Horizontal;
+                _movement += PlayerViewModel.Transform.right * GameConfigProvider.PlayerLateralSpeed * InputService.Horizontal;
             }
 
-            _movement.Normalize();
-            
-            var forwardDirection = Vector3.Project(_movement, Vector3.forward);
-            var lateralDirection = Vector3.Project(_movement, Vector3.right);
-
-            var forwardVelocity = forwardDirection * GameConfigProvider.PlayerForwardSpeed * Time.fixedDeltaTime;
-            var lateralVelocity = lateralDirection * GameConfigProvider.PlayerLateralSpeed * Time.fixedDeltaTime;
-
-            //PlayerViewModel.Rigidbody.AddForce(forwardVelocity + lateralVelocity);
-            PlayerViewModel.Rigidbody.MovePosition(PlayerViewModel.Transform.position + forwardVelocity + lateralVelocity);
+            PlayerViewModel.Rigidbody.velocity = new Vector3(_movement.x, PlayerViewModel.Rigidbody.velocity.y, _movement.z);
         }
 
         private void ControlSpeed()

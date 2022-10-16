@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3018705320229092020}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Disk-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,6 +38,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3018705320229092020}
     m_Modifications:
+    - target: {fileID: 2659214737122187498, guid: 240486197ea680a48b78c80905bd7736, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3545383897641193222, guid: 240486197ea680a48b78c80905bd7736, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -101,6 +105,14 @@ PrefabInstance:
     - target: {fileID: 6773776358786434184, guid: 240486197ea680a48b78c80905bd7736, type: 3}
       propertyPath: m_Name
       value: DiskView
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773776358786434184, guid: 240486197ea680a48b78c80905bd7736, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6951600681134438361, guid: 240486197ea680a48b78c80905bd7736, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 240486197ea680a48b78c80905bd7736, type: 3}

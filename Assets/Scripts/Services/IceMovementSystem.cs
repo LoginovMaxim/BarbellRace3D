@@ -2,6 +2,7 @@
 using Providers;
 using UnityEngine;
 using ViewModels;
+using Views;
 
 namespace Services
 {
@@ -11,16 +12,20 @@ namespace Services
 
         private Vector3 _movement = Vector3.forward;
         private float _horizontal;
+
+        private int _inputLag = 4;
+        private int _elapsedInputLag = 0;
         
         public IceMovementSystem(
             IInputService inputService, 
             IGameConfigProvider gameConfigProvider, 
             IPlayerViewModel playerViewModel, 
             ICameraFollow cameraFollow,
+            BarbellView barbellView,
             IMonoUpdater monoUpdater, 
             UpdateType updateType, 
             bool isImmediateStart) : 
-            base(inputService, gameConfigProvider, playerViewModel, cameraFollow, monoUpdater, updateType, isImmediateStart)
+            base(inputService, gameConfigProvider, playerViewModel, cameraFollow, barbellView, monoUpdater, updateType, isImmediateStart)
         {
         }
 
@@ -34,9 +39,15 @@ namespace Services
                 return;
             }
 
+            if (_elapsedInputLag++ < _inputLag)
+            {
+                return;
+            }
+            
             _horizontal = Mathf.Lerp(_horizontal, InputService.Horizontal, GameConfigProvider.PlayerIceFriction * Time.deltaTime);
             _movement = Vector3.forward * GameConfigProvider.PlayerIceForwardSpeed;
             _movement += Vector3.right * _horizontal * GameConfigProvider.PlayerIceLateralSpeed * GetWeightCoefficient();
+            _elapsedInputLag = 0;
         }
 
         protected override void OnEnabled()

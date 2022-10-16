@@ -2,6 +2,7 @@
 using Providers;
 using UnityEngine;
 using ViewModels;
+using Views;
 
 namespace Services
 {
@@ -14,12 +15,14 @@ namespace Services
         protected readonly IGameConfigProvider GameConfigProvider;
         protected readonly IPlayerViewModel PlayerViewModel;
         protected readonly ICameraFollow CameraFollow;
-        
+        protected readonly BarbellView BarbellView;
+
         public MovementSystem(
             IInputService inputService,
             IGameConfigProvider gameConfigProvider,
             IPlayerViewModel playerViewModel,
             ICameraFollow cameraFollow,
+            BarbellView barbellView,
             IMonoUpdater monoUpdater, 
             UpdateType updateType, 
             bool isImmediateStart) : 
@@ -29,6 +32,7 @@ namespace Services
             GameConfigProvider = gameConfigProvider;
             PlayerViewModel = playerViewModel;
             CameraFollow = cameraFollow;
+            BarbellView = barbellView;
 
             InputService.InputStarted += OnInputStarted;
             InputService.InputEnded += OnInputEnded;

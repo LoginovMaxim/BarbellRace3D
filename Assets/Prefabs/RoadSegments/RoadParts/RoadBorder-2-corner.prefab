@@ -45,11 +45,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc4e7fa86c3d4b44894d119d3ba21777, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc4e7fa86c3d4b44894d119d3ba21777, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.2
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc4e7fa86c3d4b44894d119d3ba21777, type: 3}
       propertyPath: m_LocalPosition.z
@@ -83,6 +83,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fc4e7fa86c3d4b44894d119d3ba21777, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 149a8a695cc38b04a9bec99d09f62569, type: 2}
     - target: {fileID: 919132149155446097, guid: fc4e7fa86c3d4b44894d119d3ba21777, type: 3}
       propertyPath: m_Name
       value: RoadBorder-2 (1)
@@ -107,7 +111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc4e7fa86c3d4b44894d119d3ba21777, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fc4e7fa86c3d4b44894d119d3ba21777, type: 3}
       propertyPath: m_LocalPosition.y
@@ -145,6 +149,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: fc4e7fa86c3d4b44894d119d3ba21777, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 149a8a695cc38b04a9bec99d09f62569, type: 2}
     - target: {fileID: 919132149155446097, guid: fc4e7fa86c3d4b44894d119d3ba21777, type: 3}
       propertyPath: m_Name
       value: RoadBorder-2

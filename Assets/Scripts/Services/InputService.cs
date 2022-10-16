@@ -6,7 +6,7 @@ namespace Services
 {
     public class InputService : UpdatableService, IInputService
     {
-        private readonly Joystick _joystick;
+        private readonly InputReceiver _inputReceiver;
         
         private bool _isInputActive;
         private float _horizontal;
@@ -15,19 +15,19 @@ namespace Services
         public Action InputEnded { get; set; }
 
         public InputService(
-            Joystick joystick,
+            InputReceiver inputReceiver,
             IMonoUpdater monoUpdater, 
             UpdateType updateType, 
             bool isImmediateStart) : 
             base(monoUpdater, updateType, isImmediateStart)
         {
-            _joystick = joystick;
+            _inputReceiver = inputReceiver;
         }
 
         protected override void Update()
         {
             _isInputActive = Input.GetMouseButton(0);
-            _horizontal = _joystick.Horizontal;
+            _horizontal = _inputReceiver.Horizontal;
 
             if (Input.GetMouseButtonDown(0))
             {

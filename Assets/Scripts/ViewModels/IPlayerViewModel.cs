@@ -7,9 +7,10 @@ namespace ViewModels
         Transform Transform { get; }
         Rigidbody Rigidbody { get; }
         bool IsRun { get; set; }
+        bool IsThrow { get; set; }
         int DiskCount { get; set; }
-        bool IsGrounded { get; set; }
-        Transform BarbellParent { get; }
+        Transform NeckTransform { get; }
+        Transform AverageHandsTransform { get; }
         Transform TubeRoundParent { get; }
     }
 }

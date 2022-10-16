@@ -32,8 +32,10 @@ namespace Configs
         
         [Header("Camera")]
         [SerializeField] private float _cameraSmooth;
-
         [SerializeField] private List<CameraData> _cameraData;
+
+        [Header("Barbell Track")] 
+        [SerializeField] private List<Color> _finishGroundColors;
 
         #region IGameConfigProvider
 
@@ -52,6 +54,7 @@ namespace Configs
         float IGameConfigProvider.RoadWidth => _roadWidth;
         float IGameConfigProvider.CameraSmooth => _cameraSmooth;
         List<CameraData> IGameConfigProvider.CameraData => _cameraData;
+        List<Color> IGameConfigProvider.FinishGroundColors => _finishGroundColors;
 
         #endregion
     }

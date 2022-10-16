@@ -2,6 +2,7 @@
 using Providers;
 using UnityEngine;
 using ViewModels;
+using Views;
 
 namespace Services
 {
@@ -9,6 +10,7 @@ namespace Services
     {
         public override MovementType MovementType => MovementType.Pipe;
 
+        private Vector3 _movement = Vector3.forward;
         private float _angle;
         
         public PipeMovementSystem(
@@ -16,19 +18,22 @@ namespace Services
             IGameConfigProvider gameConfigProvider,
             IPlayerViewModel playerViewModel,
             ICameraFollow cameraFollow,
+            BarbellView barbellView,
             IMonoUpdater monoUpdater, 
             UpdateType updateType, 
             bool isImmediateStart) : 
-            base(inputService, gameConfigProvider, playerViewModel, cameraFollow, monoUpdater, updateType, isImmediateStart)
+            base(inputService, gameConfigProvider, playerViewModel, cameraFollow, barbellView, monoUpdater, updateType, isImmediateStart)
         {
         }
 
         protected override void Update()
         {
-            PlayerViewModel.IsRun = InputService.IsInputActive;
+            PlayerViewModel.Transform.Translate(_movement * Time.deltaTime);
+            _movement = Vector3.forward * GameConfigProvider.PlayerPipeMovementSpeed;
+            
+            PlayerViewModel.IsRun = true;
 
             var playerRotationZ = PlayerViewModel.Transform.localRotation.eulerAngles.z;
-
             if (playerRotationZ > 180)
             {
                 playerRotationZ -= 360;
@@ -46,10 +51,8 @@ namespace Services
             var centerPosition = PlayerViewModel.Transform.position;
             centerPosition.x = 0;
             
-            var movement = Vector3.forward * GameConfigProvider.PlayerPipeMovementSpeed;
-            movement += (centerPosition - PlayerViewModel.Transform.position) * GameConfigProvider.PlayerLateralSpeed * GetWeightCoefficient();
+            _movement += (centerPosition - PlayerViewModel.Transform.position) * GameConfigProvider.PlayerLateralSpeed * GetWeightCoefficient();
 
-            PlayerViewModel.Transform.Translate(movement * Time.deltaTime);
             _angle = -InputService.Horizontal * GameConfigProvider.PlayerPipeFallSpeed * Time.deltaTime;
         }
 

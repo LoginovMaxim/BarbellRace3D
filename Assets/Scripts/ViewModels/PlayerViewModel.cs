@@ -1,4 +1,5 @@
 ﻿using Monos;
+using Services;
 using Signals;
 using UI;
 using UnityEngine;
@@ -12,17 +13,17 @@ namespace ViewModels
     [Binding] public sealed class PlayerViewModel : ViewModel, IPlayerViewModel
     {
         private static readonly int IsRunAnimator = Animator.StringToHash("IsRun");
+        private static readonly int IsThrowAnimator = Animator.StringToHash("Throw");
         
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Animator _animator;
-        [SerializeField] private Transform _leftStackParent;
-        [SerializeField] private Transform _rightStackParent;
-        [SerializeField] private Transform _barbellParent;
         [SerializeField] private Transform _tubeRoundParent;
+        [SerializeField] private Transform _neckTransform;
+        [SerializeField] private Transform _averageHandsTransform;
 
         private SignalBus _signalBus;
         private bool _isRun;
-        private bool _isGrounded;
+        private bool _isThrow;
         private int _diskCount;
         
         [Inject] public void Inject(Vector3 position, SignalBus signalBus)
@@ -36,25 +37,9 @@ namespace ViewModels
             _animator.SetBool(IsRunAnimator, value);
         }
 
-        private void SetViewStack()
+        private void SetAnimatorThrow()
         {
-            var isLeftSide = _diskCount % 2 == 0;
-            var stackParent = isLeftSide ? _leftStackParent : _rightStackParent;
-            var diskCount = isLeftSide ? _diskCount : _diskCount + 1;
-            diskCount /= 2;
-            diskCount -= 1;
-
-            if (diskCount > stackParent.childCount - 1)
-            {
-                diskCount = stackParent.childCount - 1;
-            }
-            
-            var childIndex = 0;
-            foreach (Transform child in stackParent)
-            {
-                child.gameObject.SetActive(childIndex == diskCount);
-                childIndex++;
-            }
+            _animator.SetTrigger(IsThrowAnimator);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -74,6 +59,18 @@ namespace ViewModels
             {
                 _signalBus.Fire(new DeathSignal());
             }
+            
+            if (other.gameObject.TryGetComponent<FinishBarbellTrackTrigger>(out var finishTrigger))
+            {
+                _signalBus.Fire(new SwitchMovementSignal(MovementType.None));
+                _signalBus.Fire(new FinishBarbellTrackSignal());
+            }
+        }
+
+        // animation callback
+        public void OnThrowBarbell()
+        {
+            _signalBus.Fire<ThrowBarbellSignal>();
         }
 
         #region IPlayerViewModel
@@ -99,10 +96,22 @@ namespace ViewModels
             }
         }
 
-        bool IPlayerViewModel.IsGrounded
+        bool IPlayerViewModel.IsThrow
         {
-            get => _isGrounded;
-            set => _isGrounded = value;
+            get
+            {
+                return _isThrow;
+            }
+            set
+            {
+                SetAnimatorThrow();
+                if (_isThrow == value)
+                {
+                    return;
+                }
+
+                _isThrow = value;
+            }
         }
 
         int IPlayerViewModel.DiskCount
@@ -119,13 +128,12 @@ namespace ViewModels
                 }
 
                 _diskCount = value;
-                SetViewStack();
             }
         }
 
+        Transform IPlayerViewModel.NeckTransform => _neckTransform;
+        Transform IPlayerViewModel.AverageHandsTransform => _averageHandsTransform;
         Transform IPlayerViewModel.TubeRoundParent => _tubeRoundParent;
-
-        Transform IPlayerViewModel.BarbellParent => _barbellParent;
 
         #endregion
 

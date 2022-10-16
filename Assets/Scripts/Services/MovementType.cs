@@ -5,6 +5,7 @@
         Common,
         Pipe,
         Ice,
-        Guides,
+        Rails,
+        None
     }
 }

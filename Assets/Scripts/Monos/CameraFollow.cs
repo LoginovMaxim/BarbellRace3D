@@ -1,6 +1,7 @@
 ﻿using Providers;
 using UnityEngine;
 using ViewModels;
+using Views;
 using Zenject;
 
 namespace Monos
@@ -23,12 +24,17 @@ namespace Monos
             SetCameraMode(CameraMode.Run);
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             var targetPosition = _target.position + _offset;
             var smooth = _gameConfigProvider.CameraSmooth;
-            transform.position = Vector3.Lerp(transform.position, targetPosition, smooth);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(_rotation), smooth);
+            transform.position = Vector3.Lerp(transform.position, targetPosition, smooth * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(_rotation), smooth * Time.deltaTime);
+        }
+
+        private void SetTarget(Transform targetTransform)
+        {
+            _target = targetTransform;
         }
 
         private void SetCameraMode(CameraMode cameraMode)
@@ -47,6 +53,11 @@ namespace Monos
         }
 
         #region ICameraFollow
+
+        void ICameraFollow.SetTarget(Transform targetTransform)
+        {
+            SetTarget(targetTransform);
+        }
 
         void ICameraFollow.SetCameraMode(CameraMode cameraMode)
         {
