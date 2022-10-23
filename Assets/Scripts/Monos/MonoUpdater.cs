@@ -9,7 +9,6 @@ namespace Monos
         public event Action Updated;
         public event Action FixedUpdated;
         public event Action LateUpdated;
-
         private void Awake() => DontDestroyOnLoad(gameObject);
 
         private void Update() { Updated?.Invoke(); }

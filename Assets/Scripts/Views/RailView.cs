@@ -2,7 +2,7 @@
 
 namespace Views
 {
-    public sealed class GuidesView : MonoBehaviour
+    public sealed class RailView : MonoBehaviour
     {
         public Transform Handle => _handle;
         
@@ -48,7 +48,7 @@ namespace Views
         private float _progress;
         private Vector3 _handleOffset;
         
-        public void MoveHandle()
+        private void MoveHandle()
         {
             _handle.transform.position = Vector3.Lerp(_startPoint.position + _handleOffset, _finishPoint.position + _handleOffset, _progress);
         }

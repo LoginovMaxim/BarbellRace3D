@@ -1,43 +1,38 @@
-﻿using System;
-using Services;
+﻿using Services;
 using Signals;
 using Views;
 using Zenject;
 
 namespace Commands
 {
-    public sealed class StopBarbellCommand : IDisposable
+    public sealed class StopBarbellCommand : Command
     {
         private readonly IBarbellMovementSystem _barbellMovementSystem;
         private readonly BarbellView _barbellView;
-        private readonly SignalBus _signalBus;
 
-        public StopBarbellCommand(IBarbellMovementSystem barbellMovementSystem, BarbellView barbellView, SignalBus signalBus)
+        public StopBarbellCommand(
+            IBarbellMovementSystem barbellMovementSystem, 
+            BarbellView barbellView, 
+            SignalBus signalBus) : 
+            base(signalBus)
         {
             _barbellMovementSystem = barbellMovementSystem;
             _barbellView = barbellView;
-            
-            _signalBus = signalBus;
-            _signalBus.Subscribe<StopBarbellSignal>(OnStopBarbellMovement);
         }
 
         private void OnStopBarbellMovement()
         {
             _barbellMovementSystem.BarbellPositionType = BarbellPositionType.Rest;
         }
-        
-        private void Dispose()
+
+        protected override void Subscribe()
         {
-            _signalBus.Unsubscribe<StopBarbellSignal>(OnStopBarbellMovement);
+            SignalBus.Subscribe<StopBarbellSignal>(OnStopBarbellMovement);
         }
 
-        #region IDisposable
-        
-        void IDisposable.Dispose()
+        protected override void Unsubscribe()
         {
-            Dispose();
+            SignalBus.Unsubscribe<StopBarbellSignal>(OnStopBarbellMovement);
         }
-
-        #endregion
     }
 }

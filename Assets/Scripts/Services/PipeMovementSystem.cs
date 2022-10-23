@@ -30,8 +30,6 @@ namespace Services
         {
             PlayerViewModel.Transform.Translate(_movement * Time.deltaTime);
             _movement = Vector3.forward * GameConfigProvider.PlayerPipeMovementSpeed;
-            
-            PlayerViewModel.IsRun = true;
 
             var playerRotationZ = PlayerViewModel.Transform.localRotation.eulerAngles.z;
             if (playerRotationZ > 180)
@@ -58,7 +56,7 @@ namespace Services
 
         protected override void OnEnabled()
         {
-            // nothing
+            PlayerViewModel.IsRun = true;
         }
         
         protected override void OnDisabled()

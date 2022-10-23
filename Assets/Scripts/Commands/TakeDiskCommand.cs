@@ -7,19 +7,29 @@ using Zenject;
 
 namespace Commands
 {
-    public sealed class TakeDiskCommand : IDisposable
+    public sealed class TakeDiskCommand : Command
     {
-        private readonly SignalBus _signalBus;
         private readonly IPlayerViewModel _playerViewModel;
         private readonly BarbellView _barbellView;
         
-        public TakeDiskCommand(SignalBus signalBus, IPlayerViewModel playerViewModel, BarbellView barbellView)
+        public TakeDiskCommand(
+            IPlayerViewModel playerViewModel, 
+            BarbellView barbellView, 
+            SignalBus signalBus) : 
+            base(signalBus)
         {
-            _signalBus = signalBus;
-            _signalBus.Subscribe<TakeDiskSignal>(x => OnTakeDisk(x.Disk));
-
             _playerViewModel = playerViewModel;
             _barbellView = barbellView;
+        }
+
+        protected override void Subscribe()
+        {
+            SignalBus.Subscribe<TakeDiskSignal>(s => OnTakeDisk(s.Disk));
+        }
+
+        protected override void Unsubscribe()
+        {
+            SignalBus.Unsubscribe<TakeDiskSignal>(s => OnTakeDisk(s.Disk));
         }
 
         private void OnTakeDisk(Disk disk)
@@ -51,19 +61,5 @@ namespace Commands
                 childIndex++;
             }
         }
-        
-        private void Dispose()
-        {
-            _signalBus.Unsubscribe<TakeDiskSignal>(x => OnTakeDisk(x.Disk));
-        }
-
-        #region IDisposable
-
-        void IDisposable.Dispose()
-        {
-            Dispose();
-        }
-
-        #endregion
     }
 }

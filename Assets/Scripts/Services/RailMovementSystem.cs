@@ -10,14 +10,13 @@ namespace Services
     {
         public override MovementType MovementType => MovementType.Rails;
 
-        private readonly GuidesView _guidesView;
+        private RailView _railView;
 
         private float _speed;
         private float _progress;
         private bool _isJumped;
         
         public RailMovementSystem(
-            GuidesView guidesView,
             IInputService inputService, 
             IGameConfigProvider gameConfigProvider, 
             IPlayerViewModel playerViewModel, 
@@ -28,16 +27,18 @@ namespace Services
             bool isImmediateStart) : 
             base(inputService, gameConfigProvider, playerViewModel, cameraFollow, barbellView, monoUpdater, updateType, isImmediateStart)
         {
-            _guidesView = guidesView;
         }
 
         protected override void Update()
         {
-            PlayerViewModel.IsRun = false;
+            if (_railView == null)
+            {
+                return;
+            }
 
             _speed = Mathf.Lerp(_speed, GameConfigProvider.PlayerGuidesMovementSpeed, Time.deltaTime);
             _progress += _speed * Time.deltaTime;
-            _guidesView.Progress = _progress;
+            _railView.Progress = _progress;
             
             PlayerViewModel.Transform.localPosition = GameConfigProvider.PlayerGuidesStartPosition;
             
@@ -58,19 +59,19 @@ namespace Services
 
             if (InputService.Horizontal < 0)
             {
-                if (_guidesView.Handle.transform.localPosition.x < -1)
+                if (_railView.Handle.transform.localPosition.x < -1)
                 {
                     return;
                 }
-                _guidesView.HandleOffset += 1.5f * Vector3.left;
+                _railView.HandleOffset += 1.5f * Vector3.left;
             }
             else if (InputService.Horizontal > 0)
             {
-                if (_guidesView.Handle.transform.localPosition.x > 1)
+                if (_railView.Handle.transform.localPosition.x > 1)
                 {
                     return;
                 }
-                _guidesView.HandleOffset += 1.5f * Vector3.right;
+                _railView.HandleOffset += 1.5f * Vector3.right;
             }
 
             _isJumped = true;
@@ -78,10 +79,16 @@ namespace Services
 
         protected override void OnEnabled()
         {
-            PlayerViewModel.Transform.parent = _guidesView.Handle.transform;
+            _speed = 0f;
+            _progress = 0f;
+            _isJumped = false;
+            
+            PlayerViewModel.IsRun = false;
+            PlayerViewModel.Transform.parent = _railView.Handle.transform;
+            
             BarbellView.BarbellParent.localPosition = new Vector3(0f, 0.4f, 0f);
             
-            CameraFollow.SetCameraMode(CameraMode.Guides);
+            CameraFollow.SetCameraMode(CameraMode.Rails);
         }
 
         protected override void OnDisabled()
@@ -98,5 +105,19 @@ namespace Services
         {
             _isJumped = false;
         }
+        
+        private void SetRailView(RailView railView)
+        {
+            _railView = railView;
+        }
+
+        #region IRailMovementSystem
+
+        void IRailMovementSystem.SetRailView(RailView railView)
+        {
+            SetRailView(railView);
+        }
+
+        #endregion
     }
 }

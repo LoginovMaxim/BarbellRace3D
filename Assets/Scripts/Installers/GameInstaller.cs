@@ -27,24 +27,32 @@ namespace Installers
             Container.DeclareSignal<FinishBarbellTrackSignal>();
             Container.DeclareSignal<ThrowBarbellSignal>();
             Container.DeclareSignal<StopBarbellSignal>();
+            Container.DeclareSignal<SetRailViewSignal>();
+
+            // factories
+            Container.BindFactory<Vector3, PlayerViewModel, PlayerViewModel.Factory>().FromComponentInNewPrefab(PlayerViewModel).AsSingle().NonLazy();
+            Container.BindInterfacesTo<PlayerViewModel>().FromComponentInHierarchy().AsSingle().NonLazy();
             
             // scene monos
             Container.Bind<InputReceiver>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.Bind<BarbellView>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.BindInterfacesTo<GameSpawnManager>().FromComponentInHierarchy().AsSingle().NonLazy();
-            if (FindObjectOfType<GuidesView>())
-            {
-                Container.Bind<GuidesView>().FromComponentInHierarchy().AsSingle().NonLazy();
-            }
 
+            // assembler parts
+            Container.Bind<GameBuilder>().AsSingle().NonLazy();
+            Container.Bind<MapBuilder>().AsSingle().NonLazy();
+
+            // assembler
+            Container.BindAssembler<GameAssembler>(new List<IAssemblerPart>
+            {
+                Container.Resolve<GameBuilder>(),
+                Container.Resolve<MapBuilder>(),
+            });
+            
             if (IsBarbellFinishGame)
             {
                 Container.BindInterfacesTo<BarbellTrackViewModel>().FromComponentInHierarchy().AsSingle().NonLazy();
             }
-
-            // factories
-            Container.BindFactory<Vector3, PlayerViewModel, PlayerViewModel.Factory>().FromComponentInNewPrefab(PlayerViewModel).AsSingle().NonLazy();
-            Container.BindInterfacesTo<PlayerViewModel>().FromComponentInHierarchy().AsSingle().NonLazy();
             
             // scene monos needed factories
             Container.BindInterfacesTo<CameraFollow>().FromComponentInHierarchy().AsSingle().NonLazy();
@@ -60,9 +68,6 @@ namespace Installers
             {
                 Container.BindService<BarbellMovementSystem>(UpdateType.Update | UpdateType.FixedUpdate, true);
             }
-
-            // assembler parts
-            Container.Bind<GameBuilder>().AsSingle().NonLazy();
             
             // commands
             Container.Bind<TakeDiskCommand>().AsSingle().NonLazy();
@@ -71,12 +76,7 @@ namespace Installers
             Container.Bind<FinishBarbellTrackCommand>().AsSingle().NonLazy();
             Container.Bind<ThrowBarbellCommand>().AsSingle().NonLazy();
             Container.Bind<StopBarbellCommand>().AsSingle().NonLazy();
-
-            // assembler
-            Container.BindAssembler<GameAssembler>(new List<IAssemblerPart>
-            {
-                Container.Resolve<GameBuilder>(),
-            });
+            Container.Bind<SetRailViewCommand>().AsSingle().NonLazy();
         }
     }
 }

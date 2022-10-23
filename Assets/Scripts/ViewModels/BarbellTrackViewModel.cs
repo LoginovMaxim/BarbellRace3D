@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UI;
 using UnityEngine;
 using UnityWeld.Binding;
@@ -16,7 +17,14 @@ namespace ViewModels
 
         private void Start()
         {
-            var barbellTrackDistanceTextViewModels = GetComponentsInChildren<BarbellTrackRoadSegmentViewModel>();
+            FindBarbellTrackRoadSegment();
+        }
+
+        private void FindBarbellTrackRoadSegment()
+        {
+            _barbellTrackDistanceTextViewModels.Clear();
+
+            var barbellTrackDistanceTextViewModels = GetComponentsInChildren<BarbellTrackRoadSegmentViewModel>(true);
             foreach (var barbellTrackDistanceTextViewModel in barbellTrackDistanceTextViewModels)
             {
                 _barbellTrackDistanceTextViewModels.Add(barbellTrackDistanceTextViewModel);
@@ -31,17 +39,28 @@ namespace ViewModels
         }
 
         #region IBarbellTrackViewModel
-
+        
         Transform IBarbellTrackViewModel.Transform => transform;
         Transform IBarbellTrackViewModel.StartPoint => _startPoint;
         Transform IBarbellTrackViewModel.FinishPoint => _finishPoint;
 
-        List<IBarbellTrackRoadSegmentViewModel> IBarbellTrackViewModel.BarbellTrackDistanceTextViewModels =>
-            _barbellTrackDistanceTextViewModels;
+        List<IBarbellTrackRoadSegmentViewModel> IBarbellTrackViewModel.BarbellTrackDistanceTextViewModels
+        {
+            get
+            {
+                if (_barbellTrackDistanceTextViewModels.Count > 0)
+                {
+                    return _barbellTrackDistanceTextViewModels;
+                }
+
+                FindBarbellTrackRoadSegment();
+                return _barbellTrackDistanceTextViewModels;
+            }
+        }
 
         void IBarbellTrackViewModel.SetFinishPosition(Vector3 finishPosition)
         {
-            _finishPoint.position = finishPosition;
+            _finishPoint.localPosition = finishPosition;
         }
 
         #endregion

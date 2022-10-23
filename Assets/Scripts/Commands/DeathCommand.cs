@@ -8,18 +8,29 @@ using Zenject;
 
 namespace Commands
 {
-    public sealed class DeathCommand : IDisposable
+    public sealed class DeathCommand : Command
     {
         private IPlayerViewModel _playerViewModel;
         private List<IUpdatableService> _updatableServices;
-        private readonly SignalBus _signalBus;
 
-        public DeathCommand(IPlayerViewModel playerViewModel, List<IUpdatableService> updatableServices, SignalBus signalBus)
+        public DeathCommand(
+            IPlayerViewModel playerViewModel, 
+            List<IUpdatableService> updatableServices, 
+            SignalBus signalBus) : 
+            base(signalBus)
         {
             _playerViewModel = playerViewModel;
             _updatableServices = updatableServices;
-            _signalBus = signalBus;
-            _signalBus.Subscribe<DeathSignal>(OnDeath);
+        }
+
+        protected override void Subscribe()
+        {
+            SignalBus.Subscribe<DeathSignal>(OnDeath);
+        }
+
+        protected override void Unsubscribe()
+        {
+            SignalBus.Unsubscribe<SwitchMovementSignal>(OnDeath);
         }
 
         private void OnDeath()
@@ -31,19 +42,5 @@ namespace Commands
             
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-
-        private void Dispose()
-        {
-            _signalBus.Unsubscribe<SwitchMovementSignal>(OnDeath);
-        }
-
-        #region IDisposable
-
-        void IDisposable.Dispose()
-        {
-            Dispose();
-        }
-
-        #endregion
     }
 }

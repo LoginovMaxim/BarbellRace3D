@@ -70,7 +70,7 @@ namespace Services
         private void Enable()
         {
             UnPause();
-
+            
             if (_barbellPositionType != BarbellPositionType.Free)
             {
                 return;
@@ -108,8 +108,9 @@ namespace Services
             var distance = _barbellTrackViewModel.FinishPoint.position.z - _barbellTrackViewModel.StartPoint.position.z;
             var currentPosition = _barbellView.transform.position.z - _barbellTrackViewModel.StartPoint.position.z;
             var coefficient = 1 - Mathf.Pow(currentPosition / distance, 2);
-            
-            _barbellView.Rigidbody.velocity = new Vector3(0, _barbellView.Rigidbody.velocity.y, 25 * coefficient);
+
+            var forwardVelocity = _gameConfigProvider.BarbellVelocity * coefficient;
+            _barbellView.Rigidbody.velocity = new Vector3(0, _barbellView.Rigidbody.velocity.y, forwardVelocity);
 
             var barbellPositionZ = _barbellView.transform.position.z;
             for (var i = 0; i < _barbellTrackViewModel.BarbellTrackDistanceTextViewModels.Count; i++)

@@ -1,51 +1,49 @@
-﻿using System;
-using Monos;
-using Services;
+﻿using Services;
 using Signals;
-using Views;
+using UnityEngine;
+using Utils;
+using ViewModels;
 using Zenject;
 
 namespace Commands
 {
-    public sealed class ThrowBarbellCommand : IDisposable
+    public sealed class ThrowBarbellCommand : Command
     {
+        private readonly IPlayerViewModel _playerViewModel;
         private readonly IBarbellMovementSystem _barbellMovementSystem;
-        private readonly ICameraFollow _cameraFollow;
-        private readonly BarbellView _barbellView;
-        private readonly SignalBus _signalBus;
+        private readonly IBarbellTrackViewModel _barbellTrackViewModel;
 
         public ThrowBarbellCommand(
-            IBarbellMovementSystem barbellMovementSystem, 
-            ICameraFollow cameraFollow,
-            BarbellView barbellView,
-            SignalBus signalBus)
+            IPlayerViewModel playerViewModel,
+            IBarbellMovementSystem barbellMovementSystem,
+            IBarbellTrackViewModel barbellTrackViewModel,
+            SignalBus signalBus) : 
+            base(signalBus)
         {
+            _playerViewModel = playerViewModel;
             _barbellMovementSystem = barbellMovementSystem;
-            _cameraFollow = cameraFollow;
-            _barbellView = barbellView;
-            
-            _signalBus = signalBus;
-            _signalBus.Subscribe<ThrowBarbellSignal>(OnThrowBarbell);
+            _barbellTrackViewModel = barbellTrackViewModel;
+        }
+
+        protected override void Subscribe()
+        {
+            SignalBus.Subscribe<ThrowBarbellSignal>(OnThrowBarbell);
+        }
+
+        protected override void Unsubscribe()
+        {
+            SignalBus.Unsubscribe<ThrowBarbellSignal>(OnThrowBarbell);
         }
 
         private void OnThrowBarbell()
         {
+            var trackCoefficient = ProjectConstants.Gameplay.DefaultFinishDistance / ProjectConstants.Gameplay.MaxDiskCount;
+            var finishDistance = _playerViewModel.DiskCount * trackCoefficient;
+            var finishPosition = new Vector3(0, 1, finishDistance);
+            
+            _barbellTrackViewModel.SetFinishPosition(finishPosition);
             _barbellMovementSystem.BarbellPositionType = BarbellPositionType.Free;
             _barbellMovementSystem.Enable();
         }
-
-        private void Dispose()
-        {
-            _signalBus.Unsubscribe<ThrowBarbellSignal>(OnThrowBarbell);
-        }
-
-        #region IDisposable
-        
-        void IDisposable.Dispose()
-        {
-            Dispose();
-        }
-
-        #endregion
     }
 }

@@ -22,6 +22,7 @@ namespace Providers
         float RoadWidth { get; }
         float CameraSmooth { get; }
         List<CameraData> CameraData { get; }
+        float BarbellVelocity { get; }
         List<Color> FinishGroundColors { get; }
     }
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3341dff2236549e4924212701d3ce5ef, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  _playerForwardSpeed: 4.5
+  _playerForwardSpeed: 45
   _playerLateralSpeed: 5
   _playerLimitForce: 100
   _playerGravitationForce: 200
@@ -36,6 +36,7 @@ MonoBehaviour:
   - CameraMode: 4
     Offset: {x: 0, y: 6, z: -6}
     Rotation: {x: 35, y: 0, z: 0}
+  _barbellVelocity: 25
   _finishGroundColors:
   - {r: 1, g: 0.2783019, b: 0.2783019, a: 1}
   - {r: 1, g: 0.587044, b: 0.27843142, a: 1}

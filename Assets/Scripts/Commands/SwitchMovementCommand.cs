@@ -2,21 +2,27 @@
 using System.Collections.Generic;
 using Services;
 using Signals;
-using Views;
 using Zenject;
 
 namespace Commands
 {
-    public sealed class SwitchMovementCommand : IDisposable
+    public sealed class SwitchMovementCommand : Command
     {
         private readonly List<IMovement> _movements;
-        private readonly SignalBus _signalBus;
 
-        public SwitchMovementCommand(List<IMovement> movements, SignalBus signalBus)
+        public SwitchMovementCommand(List<IMovement> movements, SignalBus signalBus) : base(signalBus)
         {
             _movements = movements;
-            _signalBus = signalBus;
-            _signalBus.Subscribe<SwitchMovementSignal>(x => OnSwitchMovement(x.MovementType));
+        }
+
+        protected override void Subscribe()
+        {
+            SignalBus.Subscribe<SwitchMovementSignal>(s => OnSwitchMovement(s.MovementType));
+        }
+
+        protected override void Unsubscribe()
+        {
+            SignalBus.Unsubscribe<SwitchMovementSignal>(s => OnSwitchMovement(s.MovementType));
         }
 
         private void OnSwitchMovement(MovementType movementType)
@@ -43,19 +49,5 @@ namespace Commands
                 }
             }
         }
-
-        private void Dispose()
-        {
-            _signalBus.Unsubscribe<SwitchMovementSignal>(x => OnSwitchMovement(x.MovementType));
-        }
-
-        #region IDisposable
-
-        void IDisposable.Dispose()
-        {
-            Dispose();
-        }
-
-        #endregion
     }
 }

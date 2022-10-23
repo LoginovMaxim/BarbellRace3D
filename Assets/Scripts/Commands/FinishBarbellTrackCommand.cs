@@ -8,28 +8,35 @@ using Zenject;
 
 namespace Commands
 {
-    public sealed class FinishBarbellTrackCommand : IDisposable
+    public sealed class FinishBarbellTrackCommand : Command
     {
         private readonly IPlayerViewModel _playerViewModel;
         private readonly IBarbellMovementSystem _barbellMovementSystem;
         private readonly ICameraFollow _cameraFollow;
         private readonly BarbellView _barbellView;
-        private readonly SignalBus _signalBus;
 
         public FinishBarbellTrackCommand(
             IPlayerViewModel playerViewModel, 
             IBarbellMovementSystem barbellMovementSystem,
             ICameraFollow cameraFollow,
             BarbellView barbellView,
-            SignalBus signalBus)
+            SignalBus signalBus) : 
+            base(signalBus)
         {
             _playerViewModel = playerViewModel;
             _barbellMovementSystem = barbellMovementSystem;
             _cameraFollow = cameraFollow;
             _barbellView = barbellView;
-            
-            _signalBus = signalBus;
-            _signalBus.Subscribe<FinishBarbellTrackSignal>(OnFinishProcess);
+        }
+
+        protected override void Subscribe()
+        {
+            SignalBus.Subscribe<FinishBarbellTrackSignal>(OnFinishProcess);
+        }
+
+        protected override void Unsubscribe()
+        {
+            SignalBus.Unsubscribe<FinishBarbellTrackSignal>(OnFinishProcess);
         }
 
         private void OnFinishProcess()
@@ -43,19 +50,5 @@ namespace Commands
             
             _barbellMovementSystem.Enable();
         }
-
-        private void Dispose()
-        {
-            _signalBus.Unsubscribe<FinishBarbellTrackSignal>(OnFinishProcess);
-        }
-
-        #region IDisposable
-        
-        void IDisposable.Dispose()
-        {
-            Dispose();
-        }
-
-        #endregion
     }
 }

@@ -5,7 +5,7 @@
         Run,
         Ice,
         Pipe,
-        Guides,
+        Rails,
         BarbellTrack
     }
 }
